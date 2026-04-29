@@ -3,16 +3,20 @@ const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const bodyParser = require('body-parser');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const db = new sqlite3.Database('./jkcabs.db', (err) => {
+// VERCEL CRASH FIX: Vercel sirf /tmp folder mein write karne deta hai
+const dbPath = process.env.VERCEL ? '/tmp/jkcabs.db' : path.join(__dirname, 'jkcabs.db');
+
+const db = new sqlite3.Database(dbPath, (err) => {
     if (err) console.error('DB Error:', err.message);
-    else console.log('Connected to SQLite.');
+    else console.log('Connected to SQLite at ' + dbPath);
 });
 
 db.serialize(() => {
@@ -23,7 +27,7 @@ db.serialize(() => {
 
     // SEED FLEET
     db.get("SELECT COUNT(*) as count FROM fleet", (err, row) => {
-        if (row.count === 0) {
+        if (row && row.count === 0) {
             const stmt = db.prepare(`INSERT INTO fleet (name, type, price, img, seats, trans, fuel) VALUES (?, ?, ?, ?, ?, ?, ?)`);
             const cars = [
                 ["Hatchback (Maruti Swift)", "Hatchback", "₹2000", "https://images.unsplash.com/photo-1517524008436-bbdb53c07ed7?auto=format&fit=crop&w=800", "4 Seats", "Manual", "Petrol/Diesel"],
@@ -48,15 +52,16 @@ app.post('/api/admin/login', (req, res) => {
     else res.status(401).json({ error: "Unauthorized" });
 });
 
-app.get('/api/drivers', (req, res) => db.all(`SELECT * FROM drivers`, (err, rows) => res.json(rows)));
-app.get('/api/fleet', (req, res) => db.all(`SELECT * FROM fleet`, (err, rows) => res.json(rows)));
-app.get('/api/admin/bookings', (req, res) => db.all(`SELECT * FROM bookings ORDER BY id DESC`, (err, rows) => res.json(rows)));
+app.get('/api/drivers', (req, res) => db.all(`SELECT * FROM drivers`, (err, rows) => res.json(rows || [])));
+app.get('/api/fleet', (req, res) => db.all(`SELECT * FROM fleet`, (err, rows) => res.json(rows || [])));
+app.get('/api/admin/bookings', (req, res) => db.all(`SELECT * FROM bookings ORDER BY id DESC`, (err, rows) => res.json(rows || [])));
 app.get('/api/track/:tracking_id', (req, res) => db.get(`SELECT * FROM bookings WHERE tracking_id = ?`, [req.params.tracking_id], (err, row) => res.json(row || {error: "Not Found"})));
 
 app.post('/api/book', (req, res) => {
     const { trip_type, pickup, dropoff, vehicle, customer_email, customer_phone, customer_name, extra_details } = req.body;
     db.run(`INSERT INTO bookings (trip_type, pickup, dropoff, vehicle, customer_email, customer_phone, customer_name, extra_details) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, 
     [trip_type, pickup, dropoff, vehicle, customer_email, customer_phone, customer_name, extra_details], function(err) {
+        if(err) return res.status(500).json({error: err.message});
         res.json({ bookingId: this.lastID });
     });
 });
@@ -64,7 +69,10 @@ app.post('/api/book', (req, res) => {
 app.post('/api/admin/confirm-booking', (req, res) => {
     const { id, driver_name, driver_phone } = req.body;
     const tracking_id = `TRK-${id}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
-    db.run(`UPDATE bookings SET status = 'Confirmed', assigned_driver = ?, driver_phone = ?, tracking_id = ? WHERE id = ?`, [driver_name, driver_phone, tracking_id, id], () => res.json({ tracking_id }));
+    db.run(`UPDATE bookings SET status = 'Confirmed', assigned_driver = ?, driver_phone = ?, tracking_id = ? WHERE id = ?`, [driver_name, driver_phone, tracking_id, id], (err) => {
+        if(err) return res.status(500).json({error: err.message});
+        res.json({ tracking_id });
+    });
 });
 
 app.post('/api/driver/update-location', (req, res) => {
@@ -90,6 +98,7 @@ app.post('/api/customer/signup', (req, res) => {
         res.json({ success: true, name, email, phone });
     });
 });
+
 app.post('/api/customer/login', (req, res) => {
     const { email, password } = req.body;
     db.get(`SELECT * FROM customers WHERE email = ? AND password = ?`, [email, password], (err, row) => {
@@ -97,12 +106,11 @@ app.post('/api/customer/login', (req, res) => {
         res.json({ success: true, name: row.name, email: row.email, phone: row.phone });
     });
 });
-app.get('/api/customer/bookings/:email', (req, res) => db.all(`SELECT * FROM bookings WHERE customer_email = ? ORDER BY id DESC`, [req.params.email], (err, rows) => res.json(rows)));
 
-// ==========================================
-// VERCEL EXPORT LOGIC
-// ==========================================
+app.get('/api/customer/bookings/:email', (req, res) => db.all(`SELECT * FROM bookings WHERE customer_email = ? ORDER BY id DESC`, [req.params.email], (err, rows) => res.json(rows || [])));
+
+// VERCEL EXPORT
 if (process.env.NODE_ENV !== 'production') {
-    app.listen(PORT, () => console.log(`🚀 Real-Time Server live on http://localhost:${PORT}`));
+    app.listen(PORT, () => console.log(`🚀 Server live on http://localhost:${PORT}`));
 }
 module.exports = app;

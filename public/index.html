@@ -2,29 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>J&K Cabs | Explore Kashmir, Ladakh</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>J&K Cabs | Explore Kashmir, Ladakh</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://js.puter.com/v2/"></script>
     <style>
-        :root { 
-            --brand-color: #f7941d; 
-            --brand-gradient: linear-gradient(135deg, #f7941d 0%, #f36f21 100%);
-            --brand-dark: #222222; 
-            --bg-light: #f4f7f6; 
-            --text-dark: #333; 
-            --white: #fff; 
-        }
+        :root { --brand-color: #f7941d; --brand-gradient: linear-gradient(135deg, #f7941d 0%, #f36f21 100%); --brand-dark: #222222; --bg-light: #f4f7f6; --text-dark: #333; --white: #fff; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; scroll-behavior: smooth; }
 
-        /* Colorful Top Contact Bar */
-        .top-bar { background: var(--brand-gradient); color: var(--white); padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .top-bar { background: var(--brand-gradient); color: var(--white); padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; font-weight: 600; }
         .top-bar-left span { margin-right: 25px; }
-        .top-bar-right a { color: var(--white); text-decoration: none; margin-left: 20px; font-weight: 700; transition: 0.3s; background: rgba(0,0,0,0.2); padding: 5px 12px; border-radius: 20px; }
-        .top-bar-right a:hover { background: var(--brand-dark); }
-
-        /* Main Navbar */
+        .top-bar-right a { color: var(--white); text-decoration: none; margin-left: 15px; font-weight: 700; background: rgba(0,0,0,0.2); padding: 5px 12px; border-radius: 20px; }
+        
         header { background-color: var(--white); box-shadow: 0 4px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
         .navbar { display: flex; justify-content: space-between; align-items: center; width: 90%; max-width: 1200px; margin: auto; padding: 15px 0; }
         .navbar h1 { font-size: 2.2rem; color: var(--brand-dark); font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: -1px; } 
@@ -33,15 +22,13 @@
         .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 700; font-size: 0.95rem; text-transform: uppercase; transition: 0.3s; padding-bottom: 5px; }
         .nav-links a:hover, .nav-links a.active { color: var(--brand-color); border-bottom: 3px solid var(--brand-color); }
 
-        /* Hero Image & Headline with Warm Overlay */
         .hero { background: linear-gradient(rgba(10, 27, 94, 0.7), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=1920&q=80') center/cover; padding: 80px 5% 160px 5%; text-align: center; }
         .hero h2 { color: var(--white); font-size: 3.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; text-shadow: 2px 4px 10px rgba(0,0,0,0.5); }
-        .hero p { color: var(--white); font-size: 1.3rem; font-weight: 700; margin-bottom: 30px; background: var(--brand-gradient); display: inline-block; padding: 8px 25px; border-radius: 30px; box-shadow: 0 4px 15px rgba(247, 148, 29, 0.4); }
+        .hero p { color: var(--white); font-size: 1.3rem; font-weight: 700; margin-bottom: 30px; background: var(--brand-gradient); display: inline-block; padding: 8px 25px; border-radius: 30px;}
 
-        /* Multi-Tab Booking Widget */
         .booking-widget { background: var(--white); width: 90%; max-width: 1100px; margin: -100px auto 30px; border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); z-index: 10; position: relative; overflow: hidden; border-top: 5px solid var(--brand-color); }
         .booking-tabs { display: flex; background: #f0f4f8; }
-        .tab-btn { flex: 1; padding: 18px; text-align: center; font-weight: 800; color: #666; cursor: pointer; transition: 0.3s; text-transform: uppercase; font-size: 0.95rem; border-right: 1px solid #e1e8ed; }
+        .tab-btn { flex: 1; padding: 18px; text-align: center; font-weight: 800; color: #666; cursor: pointer; text-transform: uppercase; font-size: 0.95rem; border-right: 1px solid #e1e8ed; }
         .tab-btn.active { background: var(--white); color: var(--brand-color); box-shadow: inset 0 4px 0 var(--brand-color); }
         
         .booking-form-inner { padding: 40px; }
@@ -49,86 +36,56 @@
         .input-group { flex: 1; min-width: 220px; position: relative; }
         .input-group label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px; color: #555; text-transform: uppercase; }
         .input-group input, .input-group select { width: 100%; padding: 14px; border: 2px solid #e1e8ed; border-radius: 6px; font-size: 1.05rem; outline: none; transition: 0.3s; font-weight: 600; color: #333; background: #fafafa; }
-        .input-group input:focus, .input-group select:focus { border-color: var(--brand-color); background: #fff; box-shadow: 0 0 10px rgba(247, 148, 29, 0.1); }
+        .input-group input:focus, .input-group select:focus { border-color: var(--brand-color); background: #fff; }
         
-        /* Action Buttons */
         .action-buttons { display: flex; gap: 20px; margin-top: 30px; }
-        .btn-explore { flex: 1; background: #34495e; color: var(--white); border: none; padding: 18px; font-size: 1.1rem; font-weight: 800; border-radius: 6px; cursor: pointer; text-transform: uppercase; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .btn-explore:hover { background: #2c3e50; transform: translateY(-2px); }
-        .btn-book-now { flex: 1; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: var(--white); border: none; padding: 18px; font-size: 1.1rem; font-weight: 800; border-radius: 6px; cursor: pointer; text-transform: uppercase; transition: 0.3s; box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4); }
-        .btn-book-now:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.6); }
+        .btn-explore { flex: 1; background: #34495e; color: var(--white); border: none; padding: 18px; font-size: 1.1rem; font-weight: 800; border-radius: 6px; cursor: pointer; text-transform: uppercase; }
+        .btn-book-now { flex: 1; background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: var(--white); border: none; padding: 18px; font-size: 1.1rem; font-weight: 800; border-radius: 6px; cursor: pointer; text-transform: uppercase;}
 
-        /* Colorful Offer Banner */
-        .offer-banner { width: 90%; max-width: 1100px; margin: 0 auto 50px; background: linear-gradient(90deg, #1cb5e0 0%, #000851 100%); border-radius: 8px; padding: 20px 30px; color: white; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .offer-banner h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 5px; }
-        .offer-banner p { font-size: 1rem; color: #e0f7fa; }
-        .offer-code { background: #ffeb3b; color: #000851; padding: 8px 20px; font-size: 1.2rem; font-weight: 900; border-radius: 30px; border: 2px dashed #000851; }
+        /* MOBILE RESPONSIVE FIXES */
+        @media (max-width: 768px) {
+            .top-bar { flex-direction: column; gap: 10px; text-align: center; }
+            .navbar { flex-direction: column; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px; }
+            .hero h2 { font-size: 2rem; }
+            .booking-tabs { flex-wrap: wrap; }
+            .tab-btn { min-width: 50%; border-bottom: 1px solid #ddd; }
+            .booking-form-inner { padding: 20px; }
+            .form-row { flex-direction: column; gap: 15px; }
+            .action-buttons { flex-direction: column; gap: 15px; }
+        }
 
-        /* Suggestions Slider */
         #suggestionsContainer { display: none; margin-top: 40px; padding-top: 30px; border-top: 2px dashed #eee; overflow-x: auto; white-space: nowrap; padding-bottom: 20px; }
         .sugg-card { display: inline-block; width: 260px; background: #fff; border: 1px solid #ddd; border-radius: 10px; overflow: hidden; margin-right: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.08); transition: 0.3s; }
-        .sugg-card:hover { transform: translateY(-5px); border-color: var(--brand-color); }
         .sugg-card img { width: 100%; height: 150px; object-fit: cover; }
         .sugg-card div { padding: 20px; text-align: center; }
         .sugg-card h3 { font-size: 1.1rem; color: #333; margin-bottom: 5px; font-weight: 800; }
         .sugg-card p { font-size: 1.3rem; font-weight: 900; color: var(--brand-color); }
         .sugg-card button { width: 100%; padding: 12px; background: var(--brand-gradient); color: #fff; border: none; margin-top: 15px; cursor: pointer; font-weight: bold; border-radius: 6px; text-transform: uppercase; }
 
-        /* Fleet Section */
         .fleet-section { width: 90%; max-width: 1200px; margin: 80px auto; text-align: center; }
         .section-title { font-size: 2.5rem; font-weight: 900; color: var(--brand-dark); margin-bottom: 10px; text-transform: uppercase; }
         .section-subtitle { color: #7f8c8d; margin-bottom: 50px; font-size: 1.1rem; }
-        
-        .fleet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; }
-        .fleet-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); transition: 0.4s; text-align: left; border-bottom: 4px solid transparent; }
-        .fleet-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); border-bottom: 4px solid var(--brand-color); }
-        .fleet-card img { width: 100%; height: 240px; object-fit: cover; transition: 0.5s; }
-        .fleet-card:hover img { transform: scale(1.05); }
-        
+        .fleet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 35px; }
+        .fleet-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: left; }
+        .fleet-card img { width: 100%; height: 240px; object-fit: cover; }
         .fleet-details { padding: 25px; position: relative; background: #fff; z-index: 2; }
         .fleet-title { font-size: 1.5rem; font-weight: 800; color: var(--brand-dark); margin-bottom: 15px; }
-        
         .specs-list { list-style: none; margin-bottom: 20px; border-top: 1px solid #f1f1f1; border-bottom: 1px solid #f1f1f1; padding: 15px 0; }
         .specs-list li { display: flex; justify-content: space-between; font-size: 0.95rem; color: #555; margin-bottom: 10px; }
         .specs-list li span { font-weight: 700; color: var(--brand-dark); }
-        
         .fleet-price { font-size: 1.8rem; font-weight: 900; color: var(--brand-color); text-align: center; margin-bottom: 20px; }
         .btn-card { display: block; text-align: center; background: var(--brand-dark); color: var(--white); text-decoration: none; padding: 15px; border-radius: 6px; font-weight: 800; text-transform: uppercase; transition: 0.3s; }
-        .btn-card:hover { background: var(--brand-gradient); box-shadow: 0 5px 15px rgba(247, 148, 29, 0.4); }
-
-        /* Colorful Services Section */
-        .services-section { background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); padding: 80px 5%; margin: 60px 0 0 0; }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; max-width: 1200px; margin: auto; }
-        .service-box { text-align: center; padding: 40px 30px; background: #fff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: 0.3s; border-top: 4px solid var(--brand-color); }
-        .service-box:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        .service-box h3 { font-size: 1.5rem; color: var(--brand-dark); margin-bottom: 15px; font-weight: 900; text-transform: uppercase; }
-        .service-box p { color: #666; font-size: 1rem; line-height: 1.7; }
-
-        /* ANIMATED FOOTER (Moving Vehicle) */
-        .animated-footer { position: relative; background-color: var(--brand-dark); color: var(--white); padding: 50px 5% 70px 5%; text-align: center; overflow: hidden; }
-        .animated-footer h3 { font-size: 2rem; font-weight: 800; margin-bottom: 10px; color: var(--brand-color); }
-        .animated-footer p { font-size: 1rem; color: #aaa; margin-bottom: 20px; }
         
+        .animated-footer { position: relative; background-color: var(--brand-dark); color: var(--white); padding: 50px 5% 70px 5%; text-align: center; overflow: hidden; }
         .road-container { position: absolute; bottom: 0; left: 0; width: 100%; height: 50px; background: #333; border-top: 3px solid #555; }
         .road-line { position: absolute; top: 50%; left: 0; width: 100%; height: 4px; background-image: linear-gradient(90deg, #fff 50%, transparent 50%); background-size: 60px 4px; }
         .moving-car { position: absolute; bottom: 12px; left: -150px; width: 100px; z-index: 10; animation: drive 10s linear infinite; }
         
-        @keyframes drive {
-            0% { transform: translateX(-150px); }
-            100% { transform: translateX(calc(100vw + 150px)); }
-        }
-
-        /* Floating Icons */
-        .floating-icons { position: fixed; bottom: 80px; right: 20px; display: flex; flex-direction: column; gap: 15px; z-index: 999; }
-        .fab { width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; text-decoration: none; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: transform 0.3s; }
-        .fab:hover { transform: scale(1.15); }
-        .fab.whatsapp { background: linear-gradient(135deg, #25D366, #128C7E); }
-        .fab.call { background: linear-gradient(135deg, #008cff, #0056b3); }
-        .fab svg { width: 32px; height: 32px; fill: white; }
+        @keyframes drive { 0% { transform: translateX(-150px); } 100% { transform: translateX(calc(100vw + 150px)); } }
     </style>
 </head>
 <body>
-
     <div class="top-bar">
         <div class="top-bar-left"><span>📞 +91-7006268328</span><span>✉️ sofiparvaiz114@gmail.com</span></div>
         <div class="top-bar-right" id="authLinks"><a href="customer.html">Login</a><a href="customer.html">Register as User</a></div>
@@ -163,129 +120,54 @@
         <div class="booking-form-inner">
             <form id="bookingForm">
                 <input type="hidden" id="tripType" value="One Way">
-
                 <div class="form-row">
-                    <div class="input-group">
-                        <label>From (Pickup)</label>
-                        <input type="text" id="pickup" required placeholder="Start Typing City - J&K">
-                    </div>
-                    <div class="input-group">
-                        <label>To (Dropoff)</label>
-                        <input type="text" id="dropoff" required placeholder="Destination City / Hotel">
-                    </div>
+                    <div class="input-group"><label>From (Pickup)</label><input type="text" id="pickup" required placeholder="Start Typing City - J&K"></div>
+                    <div class="input-group"><label>To (Dropoff)</label><input type="text" id="dropoff" required placeholder="Destination City / Hotel"></div>
                 </div>
-
                 <div class="form-row">
-                    <div class="input-group">
-                        <label>Pickup Date & Time</label>
-                        <input type="datetime-local" id="datetime" required>
-                    </div>
-                    <div class="input-group" id="returnDateField" style="display: none;">
-                        <label>Return Date & Time</label>
-                        <input type="datetime-local" id="returndatetime">
-                    </div>
-                    <div class="input-group" id="extraDetailsField" style="display: none;">
-                        <label id="extraDetailsLabel">Extra Details</label>
-                        <input type="text" id="extraDetails" placeholder="Enter details">
-                    </div>
+                    <div class="input-group"><label>Pickup Date & Time</label><input type="datetime-local" id="datetime" required></div>
+                    <div class="input-group" id="returnDateField" style="display: none;"><label>Return Date & Time</label><input type="datetime-local" id="returndatetime"></div>
+                    <div class="input-group" id="extraDetailsField" style="display: none;"><label id="extraDetailsLabel">Extra Details</label><input type="text" id="extraDetails" placeholder="Enter details"></div>
                 </div>
-
                 <div class="form-row">
-                    <div class="input-group">
-                        <label>Full Name</label>
-                        <input type="text" id="name" required placeholder="Your Name">
-                    </div>
-                    <div class="input-group">
-                        <label>Email ID</label>
-                        <input type="email" id="email" required placeholder="Your Email Address">
-                    </div>
-                    <div class="input-group">
-                        <label>WhatsApp Number</label>
-                        <input type="text" id="phone" required placeholder="+91">
-                    </div>
+                    <div class="input-group"><label>Full Name</label><input type="text" id="name" required placeholder="Your Name"></div>
+                    <div class="input-group"><label>Email ID</label><input type="email" id="email" required placeholder="Your Email Address"></div>
+                    <div class="input-group"><label>WhatsApp Number</label><input type="text" id="phone" required placeholder="+91"></div>
                 </div>
-
                 <div class="input-group" style="margin-bottom: 10px;">
                     <label>Select Vehicle Preference</label>
                     <select id="carType"><option value="Any">Any / Not Sure</option></select>
                 </div>
-
                 <div class="action-buttons">
                     <button type="button" class="btn-explore" onclick="exploreCabs()">Explore Cabs</button>
                     <button type="submit" class="btn-book-now">Book Now (WhatsApp)</button>
                 </div>
             </form>
-
             <div id="suggestionsContainer">
-                <h3 style="margin-bottom:15px; color:#111; font-weight:800;">Recommended Vehicles For Your Route:</h3>
+                <h3 style="margin-bottom:15px; color:#111; font-weight:800;">Recommended Vehicles:</h3>
                 <div id="suggSlider"></div>
             </div>
         </div>
     </div>
 
-    <div class="offer-banner">
-        <div>
-            <h3>Winter Special Discount! ❄️</h3>
-            <p>Book any outstation cab today and get a flat discount.</p>
-        </div>
-        <div class="offer-code">JKWINTER500</div>
-    </div>
-
     <section class="fleet-section">
         <h2 class="section-title">Popular Rides in Kashmir</h2>
-        <p class="section-subtitle">Choose from our wide range of clean and sanitized vehicles.</p>
-        
-        <div class="fleet-grid" id="fleetGrid">
-            <h3 style="color:#666; width: 100%;">Loading Database Inventory...</h3>
-        </div>
-    </section>
-
-    <section class="services-section">
-        <h2 class="section-title" style="text-align: center;">Our Premium Services</h2>
-        <p class="section-subtitle" style="text-align: center;">We guarantee comfort, safety, and reliability on every journey.</p>
-        <div class="services-grid">
-            <div class="service-box">
-                <h3 style="font-size:2rem; margin-bottom:10px;">🔄</h3>
-                <h3>Roundtrip Cabs</h3>
-                <p>Our premium roundtrip services will pamper you with an absolutely comfortable drive from your doorstep & back. Expert chauffeurs make road travel memorable.</p>
-            </div>
-            <div class="service-box">
-                <h3 style="font-size:2rem; margin-bottom:10px;">➡️</h3>
-                <h3>Oneway Drops</h3>
-                <p>Our network of routes ensures there is no corner of J&K you can't travel with us. Pay only one-side charge at rock bottom rates.</p>
-            </div>
-            <div class="service-box">
-                <h3 style="font-size:2rem; margin-bottom:10px;">✈️</h3>
-                <h3>Airport Transfers</h3>
-                <p>Timely pickups and drops to Srinagar International Airport. Never miss a flight with our guaranteed on-time taxi service.</p>
-            </div>
-        </div>
+        <div class="fleet-grid" id="fleetGrid"><h3 style="color:#666; width: 100%;">Loading Database Inventory...</h3></div>
     </section>
 
     <footer class="animated-footer">
         <h3>J&K Taxi Service</h3>
         <p>© 2026 All Rights Reserved | Traveling across Srinagar, Ladakh & Jammu</p>
-        
         <div class="road-container">
             <div class="road-line"></div>
             <img src="https://img.icons8.com/color/96/000000/taxi.png" alt="Taxi" class="moving-car">
         </div>
     </footer>
 
-    <div class="floating-icons">
-        <a href="https://wa.me/917006268328" target="_blank" class="fab whatsapp" title="WhatsApp Us">
-            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-        </a>
-        <a href="tel:+917006268328" class="fab call" title="Call Us">
-            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        </a>
-    </div>
-
     <script>
         let allFleetData = [];
 
         async function init() {
-            // Check Login
             const user = JSON.parse(localStorage.getItem('customer'));
             if(user) {
                 document.getElementById('name').value = user.name;
@@ -294,38 +176,40 @@
                 document.getElementById('authLinks').innerHTML = `<a href="customer.html">Dashboard</a> <a href="#" onclick="logout()">Logout</a>`;
             }
 
-            // Fetch Fleet API
-            const res = await fetch('/api/fleet');
-            allFleetData = await res.json();
-            
-            const select = document.getElementById('carType');
-            select.innerHTML = '<option value="Any">Any / Not Sure</option>' + allFleetData.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+            try {
+                const res = await fetch('/api/fleet');
+                allFleetData = await res.json();
+                
+                if(allFleetData.length > 0) {
+                    const select = document.getElementById('carType');
+                    select.innerHTML = '<option value="Any">Any / Not Sure</option>' + allFleetData.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
 
-            // Fill Homepage Fleet Grid
-            const grid = document.getElementById('fleetGrid');
-            grid.innerHTML = allFleetData.slice(0, 6).map(car => `
-                <div class="fleet-card">
-                    <img src="${car.img}" alt="${car.name}">
-                    <div class="fleet-details">
-                        <div class="fleet-title">${car.name}</div>
-                        <ul class="specs-list">
-                            <li>Car Type <span>${car.type}</span></li>
-                            <li>Max People <span>${car.seats}</span></li>
-                            <li>Transmission <span>${car.trans}</span></li>
-                            <li>Fuel Type <span>${car.fuel}</span></li>
-                            <li>*A/C <span>Yes</span></li>
-                        </ul>
-                        <div class="fleet-price">${car.price} <br><small style="font-size:0.8rem; color:#888;">(Including all taxes)</small></div>
-                        <a href="index.html?vehicle=${encodeURIComponent(car.name)}" class="btn-card">BOOK RIDE NOW</a>
-                    </div>
-                </div>
-            `).join('');
+                    const grid = document.getElementById('fleetGrid');
+                    grid.innerHTML = allFleetData.slice(0, 6).map(car => `
+                        <div class="fleet-card">
+                            <img src="${car.img}" alt="${car.name}">
+                            <div class="fleet-details">
+                                <div class="fleet-title">${car.name}</div>
+                                <ul class="specs-list">
+                                    <li>Car Type <span>${car.type}</span></li>
+                                    <li>Max People <span>${car.seats}</span></li>
+                                    <li>Transmission <span>${car.trans}</span></li>
+                                    <li>Fuel Type <span>${car.fuel}</span></li>
+                                </ul>
+                                <div class="fleet-price">${car.price}</div>
+                                <a href="index.html?vehicle=${encodeURIComponent(car.name)}" class="btn-card">BOOK RIDE NOW</a>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch(e) {
+                console.error("Database fetch failed. Likely initializing on Vercel.");
+            }
         }
         init();
 
         function logout() { localStorage.removeItem('customer'); location.reload(); }
 
-        // DYNAMIC TAB SWITCHING
         function switchTripType(type, btn) {
             document.getElementById('tripType').value = type;
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -335,43 +219,28 @@
             const extraField = document.getElementById('extraDetailsField');
             const extraLabel = document.getElementById('extraDetailsLabel');
 
-            if(type === 'Round Trip') {
-                returnField.style.display = 'block'; extraField.style.display = 'none';
-            } else if (type === 'Airport') {
-                returnField.style.display = 'none'; extraField.style.display = 'block'; extraLabel.innerText = "Flight Number (Optional)";
-            } else if (type === 'Packages') {
-                returnField.style.display = 'none'; extraField.style.display = 'block'; extraLabel.innerText = "Number of Days";
-            } else {
-                returnField.style.display = 'none'; extraField.style.display = 'none';
-            }
+            if(type === 'Round Trip') { returnField.style.display = 'block'; extraField.style.display = 'none'; } 
+            else if (type === 'Airport') { returnField.style.display = 'none'; extraField.style.display = 'block'; extraLabel.innerText = "Flight Number"; } 
+            else if (type === 'Packages') { returnField.style.display = 'none'; extraField.style.display = 'block'; extraLabel.innerText = "Number of Days"; } 
+            else { returnField.style.display = 'none'; extraField.style.display = 'none'; }
         }
 
-        // EXPLORE CABS (SUGGESTION SLIDER)
         function exploreCabs() {
             const pickup = document.getElementById('pickup').value;
             const dropoff = document.getElementById('dropoff').value;
-            
-            if(!pickup || !dropoff) { alert("Please enter Pickup and Dropoff locations first to explore cabs."); return; }
+            if(!pickup || !dropoff) { alert("Please enter Pickup and Dropoff locations first."); return; }
+            if(allFleetData.length === 0) { alert("Fleet data not loaded yet."); return;}
 
             const container = document.getElementById('suggestionsContainer');
-            const slider = document.getElementById('suggSlider');
-            
-            slider.innerHTML = allFleetData.map(c => `
+            document.getElementById('suggSlider').innerHTML = allFleetData.map(c => `
                 <div class="sugg-card">
                     <img src="${c.img}">
-                    <div>
-                        <h3>${c.name}</h3>
-                        <p>${c.price}</p>
-                        <button onclick="document.getElementById('carType').value='${c.name}'; alert('${c.name} selected! Now click Book Now.')">Select This Cab</button>
-                    </div>
+                    <div><h3>${c.name}</h3><p>${c.price}</p><button onclick="document.getElementById('carType').value='${c.name}'; alert('${c.name} selected! Click Book Now.')">Select This Cab</button></div>
                 </div>
             `).join('');
-            
-            container.style.display = 'block';
-            container.scrollIntoView({ behavior: 'smooth' });
+            container.style.display = 'block'; container.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // SUBMIT TO WHATSAPP, DB & PUTER EMAIL
         document.getElementById('bookingForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.querySelector('.btn-book-now');
@@ -389,24 +258,18 @@
             };
 
             try {
-                // Save to Database
                 const dbRes = await fetch('/api/book', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data) });
                 const dbData = await dbRes.json();
-
-                // Direct WhatsApp to Admin
+                
                 const waMessage = `*New Booking Request!* %0A%0A*Name:* ${data.customer_name} %0A*Phone:* ${data.customer_phone} %0A*Type:* ${data.trip_type} %0A*Route:* ${data.pickup} to ${data.dropoff} %0A*Vehicle:* ${data.vehicle} %0A*Extras:* ${data.extra_details}`;
                 window.open(`https://wa.me/917006268328?text=${waMessage}`, '_blank');
 
-                // Puter Email to Admin
-                try {
-                    puter.email.send("sofiparvaiz114@gmail.com", `New Booking Request: #${dbData.bookingId}`, `Name: ${data.customer_name}\nPhone: ${data.customer_phone}\nRoute: ${data.pickup} to ${data.dropoff}\nVehicle: ${data.vehicle}\nType: ${data.trip_type}\nExtras/Dates: ${data.extra_details}`);
-                } catch(emailErr) {}
+                try { puter.email.send("sofiparvaiz114@gmail.com", `New Booking Request: #${dbData.bookingId}`, `Name: ${data.customer_name}\nPhone: ${data.customer_phone}\nRoute: ${data.pickup} to ${data.dropoff}\nVehicle: ${data.vehicle}`); } catch(emailErr) {}
 
                 alert("✅ Booking Success! You are being redirected to WhatsApp.");
                 location.reload();
-
             } catch(err) {
-                alert("Server error. Please ensure server.js is running.");
+                alert("Server error. Please try again.");
                 btn.innerText = "Book Now (WhatsApp)";
             }
         });

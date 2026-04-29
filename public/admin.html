@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMT Style | Admin Control</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://js.puter.com/v2/"></script>
+    <style>
+        :root { --blue: #008cff; --dark-blue: #0a1930; --light-gray: #f4f6f8; --text-dark: #000; --text-light: #4a4a4a; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Lato', sans-serif; }
+        body { background-color: var(--light-gray); color: var(--text-dark); display: flex; height: 100vh; overflow: hidden; }
+        
+        #loginScreen { position: absolute; width: 100%; height: 100%; background: var(--light-gray); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+        .login-box { background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center; width: 350px; }
+        .login-box input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; outline:none;}
+        .login-box button { width: 100%; padding: 12px; background: var(--blue); color: #fff; font-weight: 900; cursor: pointer; border:none; border-radius: 4px;}
+        
+        #dashboard { display: none; width: 100%; }
+        .sidebar { width: 250px; background: var(--dark-blue); padding: 20px; color: #fff; }
+        .sidebar button { background: transparent; border: none; color: #ccc; text-align: left; padding: 15px; font-size: 1rem; cursor: pointer; border-radius: 4px; width: 100%; margin-bottom: 5px; font-weight: 700;}
+        .sidebar button:hover, .sidebar button.active { background: rgba(255,255,255,0.1); color: #fff; }
+        
+        .main { flex: 1; padding: 30px; overflow-y: auto; background: var(--light-gray); }
+        .panel { display: none; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); } 
+        .panel.active { display: block; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
+        th { color: var(--text-light); font-weight: 900; background: #fafafa; }
+        .btn-confirm { background: #26ca61; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight:bold; margin-right: 5px;}
+        .btn-del { background: #ff4b4b; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight:bold; }
+        .btn-add { background: var(--blue); color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-bottom: 15px; font-weight: 900; }
+        
+        .add-form { background: #f9f9f9; padding: 20px; border: 1px solid #eee; border-radius: 4px; margin-bottom: 20px; display: none; }
+        .add-form input { padding: 10px; margin-right: 10px; border: 1px solid #ccc; border-radius: 3px; margin-bottom: 10px;}
+        
+        #driverModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 2000; }
+        .modal-content { background: #fff; padding: 30px; border-radius: 8px; width: 400px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .modal-content select { width: 100%; padding: 12px; margin: 20px 0; border: 1px solid #ccc; outline: none; }
+    </style>
+</head>
+<body>
+    <div id="loginScreen">
+        <div class="login-box">
+            <h2 style="color:var(--blue); margin-bottom:20px; font-weight:900;">Admin Extranet</h2>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="login()">LOGIN</button>
+        </div>
+    </div>
+
+    <div id="dashboard">
+        <div class="sidebar">
+            <h2 style="margin-bottom: 30px; font-weight:900;">Dashboard</h2>
+            <button class="tab-btn active" onclick="switchTab('bookings')">Bookings</button>
+            <button class="tab-btn" onclick="switchTab('drivers')">Drivers</button>
+            <button class="tab-btn" onclick="switchTab('fleet')">Fleet Inventory</button>
+            <a href="index.html" style="color:#008cff; text-decoration:none; padding:15px; display:block; margin-top:20px; font-weight:700;">Back to Site</a>
+            <a href="driver-app.html" target="_blank" style="color:#26ca61; text-decoration:none; padding:15px; display:block; margin-top:20px; border: 1px solid #26ca61; text-align:center; border-radius:4px; font-weight:900;">🚕 OPEN DRIVER APP</a>
+		</div>
+        <div class="main">
+            <div id="bookings" class="panel active">
+                <h2 style="margin-bottom:10px;">Booking Requests</h2>
+                <table><thead><tr><th>Type & ID</th><th>Route</th><th>Vehicle</th><th>Customer</th><th>Status</th><th>Actions</th></tr></thead><tbody id="bookingsTable"></tbody></table>
+            </div>
+            <div id="drivers" class="panel">
+                <h2 style="margin-bottom:10px;">Manage Drivers</h2>
+                <button class="btn-add" onclick="document.getElementById('driverForm').style.display='block'">+ ADD DRIVER</button>
+                <div id="driverForm" class="add-form">
+                    <input type="text" id="d_name" placeholder="Driver Name">
+                    <input type="text" id="d_phone" placeholder="Phone">
+                    <input type="text" id="d_vehicle" placeholder="Assigned Vehicle">
+                    <button class="btn-confirm" onclick="addRecord('driver')">SAVE</button>
+                    <button class="btn-del" onclick="document.getElementById('driverForm').style.display='none'">CANCEL</button>
+                </div>
+                <table><thead><tr><th>Name</th><th>Phone</th><th>Vehicle</th><th>Action</th></tr></thead><tbody id="driversTable"></tbody></table>
+            </div>
+            <div id="fleet" class="panel">
+                <h2 style="margin-bottom:10px;">Manage Fleet</h2>
+                <button class="btn-add" onclick="document.getElementById('fleetForm').style.display='block'">+ ADD VEHICLE</button>
+                <div id="fleetForm" class="add-form">
+                    <input type="text" id="f_name" placeholder="Name"><input type="text" id="f_type" placeholder="Type"><input type="text" id="f_price" placeholder="Price"><input type="text" id="f_img" placeholder="Image URL"><input type="text" id="f_seats" placeholder="Seats"><input type="text" id="f_trans" placeholder="Trans"><input type="text" id="f_fuel" placeholder="Fuel">
+                    <button class="btn-confirm" onclick="addRecord('fleet')">SAVE</button>
+                    <button class="btn-del" onclick="document.getElementById('fleetForm').style.display='none'">CANCEL</button>
+                </div>
+                <table><thead><tr><th>Vehicle</th><th>Price</th><th>Class</th><th>Action</th></tr></thead><tbody id="fleetTable"></tbody></table>
+            </div>
+        </div>
+    </div>
+
+    <div id="driverModal">
+        <div class="modal-content">
+            <h2 style="color:var(--blue); font-weight:900;">Assign Driver & Dispatch</h2>
+            <select id="driverSelect"></select>
+            <input type="hidden" id="temp_bid"><input type="hidden" id="temp_phone"><input type="hidden" id="temp_email"><input type="hidden" id="temp_pickup"><input type="hidden" id="temp_dropoff"><input type="hidden" id="temp_vehicle">
+            <button class="btn-confirm" style="width:100%; padding:12px;" onclick="finalizeBooking()">DISPATCH (Send to Client)</button>
+            <button class="btn-del" style="width:100%; padding:12px; margin-top:10px;" onclick="document.getElementById('driverModal').style.display='none'">CANCEL</button>
+        </div>
+    </div>
+
+    <script>
+        async function login() {
+            const res = await fetch('/api/admin/login', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({username: document.getElementById('username').value, password: document.getElementById('password').value}) });
+            if (res.ok) { document.getElementById('loginScreen').style.display = 'none'; document.getElementById('dashboard').style.display = 'flex'; loadAllData(); }
+            else alert("Unauthorized");
+        }
+
+        function switchTab(t) { document.querySelectorAll('.panel, .tab-btn').forEach(x => x.classList.remove('active')); document.getElementById(t).classList.add('active'); event.target.classList.add('active'); }
+
+        async function loadAllData() {
+            const bRes = await fetch('/api/admin/bookings'); const bData = await bRes.json();
+            document.getElementById('bookingsTable').innerHTML = bData.map(b => `<tr><td><strong>${b.trip_type}</strong><br>#${b.id}</td><td>${b.pickup} ➔ ${b.dropoff}</td><td>${b.vehicle}<br><small>${b.extra_details}</small></td><td>${b.customer_name}<br>📞 ${b.customer_phone}<br>✉️ ${b.customer_email}</td><td style="color:${b.status==='Confirmed'?'#26ca61':'#008cff'}; font-weight:700;">${b.status}<br><small style="color:#888;">${b.tracking_id || ''}</small></td><td>${b.status==='Pending' ? `<button class="btn-confirm" onclick="openDispatch(${b.id}, '${b.customer_phone}', '${b.customer_email}', '${b.pickup}', '${b.dropoff}', '${b.vehicle}')">Process</button>` : ''} <button class="btn-del" onclick="del('bookings', ${b.id})">Del</button></td></tr>`).join('');
+            
+            const dRes = await fetch('/api/drivers'); const dData = await dRes.json();
+            document.getElementById('driversTable').innerHTML = dData.map(d => `<tr><td>${d.name}</td><td>${d.phone}</td><td>${d.vehicle}</td><td><button class="btn-del" onclick="del('drivers', ${d.id})">Del</button></td></tr>`).join('');
+            
+            const fRes = await fetch('/api/fleet'); const fData = await fRes.json();
+            document.getElementById('fleetTable').innerHTML = fData.map(f => `<tr><td>${f.name}</td><td>${f.price}</td><td>${f.type}</td><td><button class="btn-del" onclick="del('fleet', ${f.id})">Del</button></td></tr>`).join('');
+        }
+
+        async function openDispatch(id, p, e, pu, dof, v) {
+            const dRes = await fetch('/api/drivers'); const drivers = await dRes.json();
+            document.getElementById('driverSelect').innerHTML = drivers.map(d => `<option value="${d.name}|${d.phone}">${d.name} (${d.vehicle})</option>`).join('');
+            document.getElementById('temp_bid').value = id; document.getElementById('temp_phone').value = p; document.getElementById('temp_email').value = e; document.getElementById('temp_pickup').value = pu; document.getElementById('temp_dropoff').value = dof; document.getElementById('temp_vehicle').value = v;
+            document.getElementById('driverModal').style.display = 'flex';
+        }
+
+        // WHATSAPP 404 ERROR FIX (encodeURIComponent)
+        async function finalizeBooking() {
+            const id = document.getElementById('temp_bid').value;
+            const [dName, dPhone] = document.getElementById('driverSelect').value.split('|');
+            
+            document.querySelector('.btn-confirm').innerText = "Processing...";
+
+            const res = await fetch('/api/admin/confirm-booking', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({id, driver_name: dName, driver_phone: dPhone}) });
+            const data = await res.json();
+            
+            const link = `http://localhost:3000/tracking.html?id=${data.tracking_id}`;
+            const cEmail = document.getElementById('temp_email').value;
+            const cPhone = document.getElementById('temp_phone').value;
+            
+            // Email to Customer
+            try { await puter.email.send(cEmail, `J&K Cabs: Ride Confirmed! #${id}`, `Your ride is confirmed.\nDriver: ${dName}\nPhone: ${dPhone}\nTrack: ${link}`); } catch(e){}
+            
+            // WhatsApp to Customer (Properly Encoded to fix 404 error)
+            const msg = encodeURIComponent(`*Booking Confirmed!* \n*ID:* #${id} \n*Driver:* ${dName} \n*Phone:* ${dPhone} \n*Track:* ${link}`);
+            window.open(`https://wa.me/${cPhone.replace(/\+/g, '')}?text=${msg}`, '_blank');
+            
+            document.getElementById('driverModal').style.display = 'none'; 
+            document.querySelector('.btn-confirm').innerText = "DISPATCH (Send to Client)";
+            loadAllData();
+        }
+
+        async function addRecord(type) {
+            let payload = type === 'driver' ? { name: document.getElementById('d_name').value, phone: document.getElementById('d_phone').value, vehicle: document.getElementById('d_vehicle').value } : { name: document.getElementById('f_name').value, type: document.getElementById('f_type').value, price: document.getElementById('f_price').value, img: document.getElementById('f_img').value, seats: document.getElementById('f_seats').value, trans: document.getElementById('f_trans').value, fuel: document.getElementById('f_fuel').value };
+            await fetch(`/api/admin/add/${type}`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
+            document.querySelectorAll('.add-form').forEach(f => f.style.display = 'none'); loadAllData();
+        }
+
+        async function del(t, id) { if(confirm('Delete?')) { await fetch(`/api/admin/delete/${t}/${id}`, { method: 'DELETE' }); loadAllData(); } }
+    </script>
+</body>
+</html>

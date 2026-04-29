@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Weather | J&K Cabs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #D4AF37; --bg: #0A0A0A; --surface: #1A1A1A; --text: #E5E5E5; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        
+        header { background-color: rgba(10, 10, 10, 0.95); border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; width: 90%; max-width: 1200px; margin: auto; padding: 1.2rem 0; }
+        .navbar h1 { font-size: 2rem; color: #FFF; cursor: pointer;} .navbar h1 span { color: var(--primary); }
+        .nav-links { display: flex; gap: 20px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 400; text-transform: uppercase; font-size: 0.9rem; }
+        .nav-links a:hover { color: var(--primary); }
+        
+        .page-header { text-align: center; padding: 60px 20px; border-bottom: 1px solid #222; }
+        .page-header h2 { font-size: 3rem; color: var(--primary); margin-bottom: 10px; }
+
+        .weather-container { width: 90%; max-width: 1200px; margin: 60px auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        
+        .weather-card { background: linear-gradient(145deg, #1A1A1A, #0a0a0a); border: 1px solid #333; padding: 40px 20px; border-radius: 10px; text-align: center; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+        .weather-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .temp { font-size: 3.5rem; font-weight: bold; color: var(--primary); margin: 15px 0; }
+        .city { font-size: 1.5rem; letter-spacing: 1px; color: #FFF; }
+        .wind { color: #888; font-size: 0.9rem; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="navbar">
+            <h1 onclick="window.location.href='index.html'">J&K <span>Cabs</span></h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="weather.html" style="color: var(--primary);">Weather</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <h2>Live Altitude Weather</h2>
+        <p style="color: #888;">Real-time meteorological data to plan your journey safely.</p>
+    </div>
+
+    <div class="weather-container">
+        <div class="grid" id="weatherGrid">
+            <h3 style="text-align: center; width: 100%; color: #888;">Fetching Real-Time Satellite Data...</h3>
+        </div>
+    </div>
+
+    <script>
+        // Coordinates for J&K Tourist Destinations
+        const locations = [
+            { name: "Srinagar", lat: 34.0836, lon: 74.7973 },
+            { name: "Gulmarg", lat: 34.0494, lon: 74.3805 },
+            { name: "Pahalgam", lat: 34.0150, lon: 75.3268 },
+            { name: "Sonamarg", lat: 34.3023, lon: 75.2934 },
+            { name: "Jammu", lat: 32.7266, lon: 74.8570 }
+        ];
+
+        async function fetchWeather() {
+            const grid = document.getElementById('weatherGrid');
+            grid.innerHTML = '';
+
+            for (let loc of locations) {
+                try {
+                    // Using Open-Meteo API (Free, No Auth Required, Highly Accurate)
+                    const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current_weather=true`);
+                    const data = await res.json();
+                    const weather = data.current_weather;
+                    
+                    grid.innerHTML += `
+                        <div class="weather-card">
+                            <div class="city">${loc.name}</div>
+                            <div class="temp">${weather.temperature}°C</div>
+                            <div style="font-size: 1.1rem; color: #FFF;">Wind Speed</div>
+                            <div class="wind">${weather.windspeed} km/h</div>
+                        </div>
+                    `;
+                } catch (error) {
+                    console.error("Weather fetch failed for " + loc.name);
+                }
+            }
+        }
+
+        fetchWeather();
+    </script>
+</body>
+</html>

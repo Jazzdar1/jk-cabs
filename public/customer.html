@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account | J&K Cabs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --blue: #008cff; --dark-blue: #051423; --light-gray: #f2f2f2; --text-dark: #000; --text-light: #4a4a4a; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Lato', sans-serif; }
+        body { background-color: var(--light-gray); color: var(--text-dark); display: flex; flex-direction: column; min-height: 100vh;}
+        
+        header { background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; width: 90%; max-width: 1200px; margin: auto; padding: 15px 0; }
+        .navbar h1 { font-size: 1.8rem; font-weight: 900; cursor: pointer; } .navbar h1 span { color: var(--blue); }
+        .nav-links { display: flex; gap: 25px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text-light); font-weight: 700; font-size: 0.9rem; text-transform: uppercase; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--blue); }
+
+        /* AUTH CONTAINER */
+        .auth-container { width: 100%; max-width: 400px; margin: 80px auto; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
+        .auth-container h2 { font-weight: 900; color: var(--dark-blue); margin-bottom: 20px; }
+        .input-box { width: 100%; padding: 12px 15px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; outline: none; }
+        .input-box:focus { border-color: var(--blue); }
+        .btn-main { width: 100%; padding: 12px; background: linear-gradient(93deg, #53b2fe, #065af3); color: #fff; border: none; font-size: 1rem; font-weight: 900; border-radius: 34px; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        .btn-main:hover { box-shadow: 0 4px 10px rgba(0, 140, 255, 0.4); }
+        .toggle-txt { margin-top: 15px; font-size: 0.9rem; color: var(--text-light); cursor: pointer; }
+        .toggle-txt span { color: var(--blue); font-weight: bold; }
+
+        /* DASHBOARD CONTAINER */
+        .dashboard-container { width: 90%; max-width: 1000px; margin: 40px auto; display: none; }
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .dashboard-header h2 { font-weight: 900; font-size: 2rem; color: var(--dark-blue); }
+        .btn-logout { background: #ff4b4b; color: white; padding: 8px 20px; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        
+        .bookings-grid { display: flex; flex-direction: column; gap: 20px; }
+        .booking-card { background: #fff; border-radius: 8px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; border: 1px solid #e0e0e0; }
+        .route { font-size: 1.3rem; font-weight: 900; color: #000; margin-bottom: 5px; }
+        .details { color: #888; font-size: 0.9rem; }
+        .status-badge { padding: 5px 12px; border-radius: 20px; font-weight: 900; font-size: 0.8rem; text-transform: uppercase; }
+        .status-pending { background: #fff3cd; color: #d4af37; }
+        .status-confirmed { background: #d1fae5; color: #10B981; }
+        
+        .actions { text-align: right; }
+        .btn-track { background: var(--blue); color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 20px; font-size: 0.85rem; font-weight: 900; display: inline-block; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="navbar">
+            <h1 onclick="window.location.href='index.html'">J&K<span>Cabs</span></h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Book Cabs</a></li>
+                <li><a href="destinations.html">Destinations</a></li>
+                <li><a href="fleet.html">Our Fleet</a></li>
+                <li><a href="tracking.html">Track Ride</a></li>
+                <li><a href="customer.html" class="active">My Account</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="auth-container" id="authBox">
+        <h2 id="authTitle">Customer Login</h2>
+        <form id="authForm">
+            <input type="text" id="name" class="input-box" placeholder="Full Name" style="display: none;">
+            <input type="text" id="phone" class="input-box" placeholder="Phone Number" style="display: none;">
+            <input type="email" id="email" class="input-box" required placeholder="Email Address">
+            <input type="password" id="password" class="input-box" required placeholder="Password">
+            <button type="submit" class="btn-main" id="authBtn">Login</button>
+        </form>
+        <p class="toggle-txt" id="toggleMode">Don't have an account? <span>Sign Up</span></p>
+    </div>
+
+    <div class="dashboard-container" id="dashBox">
+        <div class="dashboard-header">
+            <h2>Welcome, <span id="userName" style="color:var(--blue);"></span>!</h2>
+            <button class="btn-logout" onclick="logout()">Logout</button>
+        </div>
+        <h3 style="margin-bottom: 15px; color: var(--text-light);">My Trip History</h3>
+        <div class="bookings-grid" id="bookingsGrid">
+            </div>
+    </div>
+
+    <script>
+        let isLogin = true;
+
+        // Toggle Login / Signup
+        document.getElementById('toggleMode').addEventListener('click', () => {
+            isLogin = !isLogin;
+            document.getElementById('authTitle').innerText = isLogin ? "Customer Login" : "Create Account";
+            document.getElementById('authBtn').innerText = isLogin ? "Login" : "Sign Up";
+            document.getElementById('toggleMode').innerHTML = isLogin ? "Don't have an account? <span>Sign Up</span>" : "Already have an account? <span>Login</span>";
+            document.getElementById('name').style.display = isLogin ? "none" : "block";
+            document.getElementById('phone').style.display = isLogin ? "none" : "block";
+            if(!isLogin) { document.getElementById('name').required = true; document.getElementById('phone').required = true; }
+            else { document.getElementById('name').required = false; document.getElementById('phone').required = false; }
+        });
+
+        // Form Submit
+        document.getElementById('authForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const endpoint = isLogin ? '/api/customer/login' : '/api/customer/signup';
+            const payload = { email: document.getElementById('email').value, password: document.getElementById('password').value };
+            if(!isLogin) {
+                payload.name = document.getElementById('name').value;
+                payload.phone = document.getElementById('phone').value;
+            }
+
+            const res = await fetch(endpoint, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+            const data = await res.json();
+
+            if(res.ok) {
+                localStorage.setItem('customer', JSON.stringify(data));
+                checkAuth();
+            } else {
+                alert(data.error);
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('customer');
+            location.reload();
+        }
+
+        // Dashboard Logic
+        async function checkAuth() {
+            const user = JSON.parse(localStorage.getItem('customer'));
+            if(user) {
+                document.getElementById('authBox').style.display = 'none';
+                document.getElementById('dashBox').style.display = 'block';
+                document.getElementById('userName').innerText = user.name;
+                
+                // Fetch User Bookings
+                const res = await fetch(`/api/customer/bookings/${user.email}`);
+                const bookings = await res.json();
+                const grid = document.getElementById('bookingsGrid');
+                
+                if(bookings.length === 0) {
+                    grid.innerHTML = `<div style="background:#fff; padding:40px; text-align:center; border-radius:8px;">You haven't booked any rides yet. <br><br><a href="index.html" class="btn-track" style="margin-top:10px;">Book a Cab</a></div>`;
+                    return;
+                }
+
+                grid.innerHTML = bookings.map(b => `
+                    <div class="booking-card">
+                        <div>
+                            <div class="route">${b.pickup} ➔ ${b.dropoff}</div>
+                            <div class="details">Vehicle: <strong>${b.vehicle}</strong> | Booking ID: #${b.id}</div>
+                            ${b.assigned_driver ? `<div class="details" style="margin-top:5px; color:#000;">Driver: ${b.assigned_driver} (📞 ${b.driver_phone})</div>` : ''}
+                        </div>
+                        <div class="actions">
+                            <div class="status-badge ${b.status === 'Pending' ? 'status-pending' : 'status-confirmed'}">${b.status}</div>
+                            ${b.tracking_id ? `<br><a href="tracking.html?id=${b.tracking_id}" class="btn-track">Track Live 📍</a>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+        checkAuth();
+    </script>
+</body>
+</html>

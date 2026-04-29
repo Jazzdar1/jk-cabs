@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chauffeurs | J&K Cabs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #D4AF37; --bg: #0A0A0A; --surface: #1A1A1A; --text: #E5E5E5; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        header { background-color: rgba(10, 10, 10, 0.95); border-bottom: 1px solid #333; position: sticky; top: 0; z-index: 100; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; width: 90%; max-width: 1200px; margin: auto; padding: 1.2rem 0; }
+        .navbar h1 { font-size: 2rem; color: #FFF; cursor: pointer;} .navbar h1 span { color: var(--primary); }
+        .nav-links { display: flex; gap: 20px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text); font-weight: 400; text-transform: uppercase; font-size: 0.9rem; }
+        .nav-links a:hover { color: var(--primary); }
+        .page-header { text-align: center; padding: 60px 20px; border-bottom: 1px solid #222; }
+        .page-header h2 { font-size: 3rem; color: var(--primary); margin-bottom: 10px; }
+        .driver-container { width: 90%; max-width: 1200px; margin: 60px auto; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .driver-card { background: var(--surface); padding: 40px 20px; border-radius: 10px; text-align: center; border: 1px solid #333; transition: 0.3s; }
+        .driver-card:hover { border-color: var(--primary); transform: translateY(-5px); }
+        .driver-card img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); margin: 0 auto 20px auto; display: block; }
+        .contact-btn { display: inline-block; background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 10px 20px; border-radius: 5px; text-decoration: none; margin-top: 20px; transition: 0.3s; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+        .contact-btn:hover { background: var(--primary); color: #000; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <h1 onclick="window.location.href='index.html'">J&K <span>Cabs</span></h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="fleet.html">Fleet</a></li>
+                <li><a href="drivers.html" style="color: var(--primary);">Drivers</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="page-header">
+        <h2>Executive Chauffeurs</h2>
+        <p style="color: #888;">Live database of our available professional drivers.</p>
+    </div>
+
+    <div class="driver-container">
+        <div class="grid" id="driverGrid">
+            <h3 style="color:#888; text-align:center; width:100%;">Loading Drivers from Database...</h3>
+        </div>
+    </div>
+
+    <script>
+        // FETCHING DIRECTLY FROM ADMIN DATABASE
+        async function loadDrivers() {
+            try {
+                const res = await fetch('/api/drivers');
+                const drivers = await res.json();
+                const grid = document.getElementById('driverGrid');
+                grid.innerHTML = '';
+
+                if (drivers.length === 0) {
+                    grid.innerHTML = "<h3 style='color:#D4AF37; text-align:center; width:100%;'>No drivers found. Please add drivers from the Admin Panel.</h3>";
+                    return;
+                }
+
+                drivers.forEach(d => {
+                    const avatarUrl = `https://ui-avatars.com/api/?name=${d.name}&background=D4AF37&color=0A0A0A&size=200`;
+                    grid.innerHTML += `
+                        <div class="driver-card">
+                            <img src="${avatarUrl}" alt="${d.name}">
+                            <h3 style="font-size: 1.4rem; margin-bottom: 5px;">${d.name}</h3>
+                            <p style="color: #888; font-size: 0.9rem;">Class: ${d.vehicle}</p>
+                            <p style="color: var(--primary); font-size: 1.2rem; margin-top: 10px;">★★★★★</p>
+                            <a href="https://wa.me/${d.phone.replace(/[^0-9]/g, '')}" target="_blank" class="contact-btn">Request Chauffeur</a>
+                        </div>
+                    `;
+                });
+            } catch (e) {
+                document.getElementById('driverGrid').innerHTML = "<h3 style='color:red; text-align:center; width:100%;'>Database Offline.</h3>";
+            }
+        }
+        loadDrivers();
+    </script>
+</body>
+</html>

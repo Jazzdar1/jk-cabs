@@ -4,77 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Driver App | J&K Cabs</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Lato', sans-serif; background-color: #051423; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; padding: 20px; text-align: center;}
-        .card { background: #fff; color: #000; padding: 40px; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h1 { color: #008cff; margin-bottom: 20px; font-weight: 900;}
-        input { width: 100%; padding: 15px; margin-bottom: 20px; border: 2px solid #ccc; border-radius: 6px; font-size: 1.2rem; text-align: center; text-transform: uppercase;}
-        button { width: 100%; padding: 15px; background: #26ca61; color: white; border: none; font-size: 1.2rem; font-weight: 900; border-radius: 6px; cursor: pointer; text-transform: uppercase; }
-        .stop-btn { background: #ff4b4b; display: none; margin-top: 15px;}
-        .status-box { margin-top: 20px; padding: 15px; background: #f2f2f2; border-radius: 6px; display: none; }
-        .data-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; color: #444;}
-        .data-val { font-weight: bold; color: #000;}
+        :root { --brand-color: #f7941d; --brand-gradient: linear-gradient(135deg, #f7941d 0%, #f36f21 100%); --brand-dark: #222222; --bg-light: #f4f7f6; --white: #fff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-light); color: #333; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        
+        .card { background: var(--white); padding: 40px; border-radius: 12px; width: 100%; max-width: 450px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 5px solid var(--brand-color); text-align: center; }
+        h1 { color: var(--brand-dark); font-weight: 900; margin-bottom: 10px; text-transform: uppercase; font-size: 1.8rem;}
+        h1 span { color: var(--brand-color); }
+        .subtitle { color: #666; margin-bottom: 25px; font-size: 0.95rem; line-height: 1.5; }
+        
+        input { width: 100%; padding: 15px; margin-bottom: 20px; border: 2px solid #ddd; border-radius: 6px; font-size: 1.1rem; text-align: center; text-transform: uppercase; font-weight: 700; outline: none; transition: 0.3s;}
+        input:focus { border-color: var(--brand-color); }
+        
+        button { width: 100%; padding: 15px; background: var(--brand-dark); color: var(--white); border: none; font-size: 1.1rem; font-weight: 800; border-radius: 6px; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        button:hover { background: var(--brand-gradient); }
+        
+        .stop-btn { background: #ff4b4b; display: none; margin-top: 15px; }
+        .stop-btn:hover { background: #d93838; }
+
+        .status-box { margin-top: 25px; padding: 20px; background: #fafafa; border-radius: 8px; border: 1px solid #eee; display: none; text-align: left;}
+        .status-box h3 { color: #26ca61; margin-bottom: 15px; text-align: center; font-weight: 800; text-transform: uppercase;}
+        .data-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.95rem; color: #555; font-weight: 600;}
+        .data-val { font-weight: 800; color: var(--brand-dark);}
+        
+        @media (max-width: 768px) {
+            .card { padding: 25px; }
+            h1 { font-size: 1.5rem; }
+        }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <h1>Driver GPS Portal</h1>
-        <p style="color:#666; margin-bottom: 20px;">Keep this screen open while driving to broadcast your live location to the customer.</p>
+        <h1>J&K Cabs <span>Driver</span></h1>
+        <p class="subtitle">Enter Tracking ID and keep this app open while driving to broadcast Live GPS to the customer.</p>
         
-        <input type="text" id="trackingId" placeholder="Enter Tracking ID (e.g. TRK-...)">
-        <button id="startBtn" onclick="startTracking()">Start Trip & Share Location</button>
-        <button id="stopBtn" class="stop-btn" onclick="stopTracking()">End Trip</button>
+        <input type="text" id="trackingId" placeholder="Tracking ID (e.g. TRK-)">
+        <button id="startBtn" onclick="startTracking()">Start Broadcast 📡</button>
+        <button id="stopBtn" class="stop-btn" onclick="stopTracking()">End Trip 🛑</button>
 
         <div class="status-box" id="statusBox">
-            <h3 style="color:#26ca61; margin-bottom: 15px;">Live GPS Active 📡</h3>
+            <h3>Live GPS Active</h3>
             <div class="data-row"><span>Latitude:</span> <span class="data-val" id="latVal">0.00</span></div>
             <div class="data-row"><span>Longitude:</span> <span class="data-val" id="lngVal">0.00</span></div>
-            <div class="data-row"><span>Real Speed:</span> <span class="data-val" id="speedVal">0 km/h</span></div>
+            <div class="data-row"><span>Speed:</span> <span class="data-val" id="speedVal" style="color:var(--brand-color);">0 km/h</span></div>
         </div>
+        <a href="admin.html" style="display:block; margin-top:20px; color:var(--brand-color); text-decoration:none; font-weight:700;">← Back to Admin</a>
     </div>
 
     <script>
         let watchId = null;
-
         function startTracking() {
             const trackId = document.getElementById('trackingId').value;
-            if(!trackId) return alert("Please enter the Tracking ID provided by Admin.");
-
-            if (!navigator.geolocation) {
-                return alert("Your device does not support GPS Geolocation.");
-            }
+            if(!trackId) return alert("Please enter Tracking ID.");
+            if (!navigator.geolocation) return alert("Device does not support GPS.");
 
             document.getElementById('startBtn').style.display = 'none';
             document.getElementById('stopBtn').style.display = 'block';
             document.getElementById('statusBox').style.display = 'block';
             document.getElementById('trackingId').disabled = true;
 
-            // This accesses the physical GPS hardware of the phone
             watchId = navigator.geolocation.watchPosition(
                 (position) => {
                     const lat = position.coords.latitude;
                     const lng = position.coords.longitude;
-                    // Speed is in meters/second. Multiply by 3.6 for km/h. If null, default to 0.
                     const speed = position.coords.speed ? (position.coords.speed * 3.6).toFixed(1) : 0; 
 
                     document.getElementById('latVal').innerText = lat.toFixed(5);
                     document.getElementById('lngVal').innerText = lng.toFixed(5);
                     document.getElementById('speedVal').innerText = `${speed} km/h`;
 
-                    // Send the ACTUAL physical data to your server
                     fetch('/api/driver/update-location', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ tracking_id: trackId, lat: lat, lng: lng, speed: speed })
                     });
                 },
-                (error) => {
-                    console.error(error);
-                    alert("Please turn on GPS/Location Services on your phone.");
-                },
-                { enableHighAccuracy: true, maximumAge: 0 } // Forces GPS hardware usage
+                (error) => { alert("Please turn on GPS Location on your phone."); },
+                { enableHighAccuracy: true, maximumAge: 0 }
             );
         }
 
@@ -85,7 +94,7 @@
             document.getElementById('statusBox').style.display = 'none';
             document.getElementById('trackingId').disabled = false;
             document.getElementById('trackingId').value = '';
-            alert("Trip Ended. GPS tracking stopped.");
+            alert("Trip Ended.");
         }
     </script>
 </body>

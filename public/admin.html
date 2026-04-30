@@ -2,44 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Admin Dashboard | J&K Cabs</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | J&K Cabs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://js.puter.com/v2/"></script>
     <style>
-        :root { --blue: #008cff; --dark-blue: #0a1930; --light-gray: #f4f6f8; --text-dark: #000; --text-light: #4a4a4a; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Lato', sans-serif; }
-        body { background-color: var(--light-gray); color: var(--text-dark); display: flex; height: 100vh; overflow: hidden; }
+        :root { --brand-color: #f7941d; --brand-dark: #222222; --bg-light: #f4f7f6; --white: #fff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-light); color: #333; display: flex; height: 100vh; overflow: hidden; }
         
-        #loginScreen { position: absolute; width: 100%; height: 100%; background: var(--light-gray); display: flex; justify-content: center; align-items: center; z-index: 1000; padding: 20px;}
-        .login-box { background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center; width: 100%; max-width: 350px; }
-        .login-box input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; outline:none;}
-        .login-box button { width: 100%; padding: 12px; background: var(--blue); color: #fff; font-weight: 900; cursor: pointer; border:none; border-radius: 4px;}
+        #loginScreen { position: absolute; width: 100%; height: 100%; background: var(--brand-dark); display: flex; justify-content: center; align-items: center; z-index: 1000; padding: 20px;}
+        .login-box { background: var(--white); padding: 40px; border-radius: 12px; text-align: center; width: 100%; max-width: 350px; border-top: 5px solid var(--brand-color);}
+        .login-box input { width: 100%; padding: 14px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; outline:none; font-family:'Poppins';}
+        .login-box button { width: 100%; padding: 14px; background: var(--brand-dark); color: var(--white); font-weight: 800; cursor: pointer; border:none; border-radius: 6px; text-transform:uppercase;}
         
         #dashboard { display: none; width: 100%; height: 100%; }
-        .sidebar { width: 250px; background: var(--dark-blue); padding: 20px; color: #fff; display: flex; flex-direction: column; overflow-y: auto;}
-        .sidebar button { background: transparent; border: none; color: #ccc; text-align: left; padding: 15px; font-size: 1rem; cursor: pointer; border-radius: 4px; width: 100%; margin-bottom: 5px; font-weight: 700;}
-        .sidebar button:hover, .sidebar button.active { background: rgba(255,255,255,0.1); color: #fff; }
+        .sidebar { width: 250px; background: var(--brand-dark); padding: 20px; color: var(--white); display: flex; flex-direction: column; overflow-y: auto;}
+        .sidebar h2 { color: var(--brand-color); font-weight: 900; margin-bottom: 20px; text-transform: uppercase;}
+        .sidebar button { background: transparent; border: none; color: #ccc; text-align: left; padding: 15px; font-size: 1rem; cursor: pointer; border-radius: 6px; width: 100%; margin-bottom: 5px; font-weight: 700; font-family:'Poppins';}
+        .sidebar button:hover, .sidebar button.active { background: var(--brand-color); color: var(--white); }
         
-        .main { flex: 1; padding: 30px; overflow-y: auto; background: var(--light-gray); }
-        .panel { display: none; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow-x: auto;} 
+        .main { flex: 1; padding: 30px; overflow-y: auto; background: var(--bg-light); }
+        .panel { display: none; background: var(--white); padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); overflow-x: auto;} 
         .panel.active { display: block; }
         
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; min-width: 600px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; min-width: 700px; }
         th, td { padding: 15px; text-align: left; border-bottom: 1px solid #eee; }
-        th { color: var(--text-light); font-weight: 900; background: #fafafa; }
+        th { color: var(--brand-dark); font-weight: 800; background: #fafafa; text-transform:uppercase; font-size:0.9rem;}
         
-        .btn-confirm { background: #26ca61; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight:bold; margin-right: 5px;}
-        .btn-del { background: #ff4b4b; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight:bold; }
-        .btn-add { background: var(--blue); color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-bottom: 15px; font-weight: 900; }
+        .btn-confirm { background: #26ca61; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight:bold; margin-right: 5px; font-family:'Poppins';}
+        .btn-del { background: #ff4b4b; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight:bold; font-family:'Poppins';}
+        .btn-add { background: var(--brand-dark); color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; margin-bottom: 15px; font-weight: 800; text-transform:uppercase; font-family:'Poppins';}
         
-        .add-form { background: #f9f9f9; padding: 20px; border: 1px solid #eee; border-radius: 4px; margin-bottom: 20px; display: none; }
-        .add-form input { padding: 10px; margin-right: 10px; border: 1px solid #ccc; border-radius: 3px; margin-bottom: 10px; width: 100%; max-width: 200px;}
+        .add-form { background: #fafafa; padding: 20px; border: 1px solid #eee; border-radius: 8px; margin-bottom: 20px; display: none; }
+        .add-form input { padding: 12px; margin-right: 10px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 10px; width: 100%; max-width: 200px; font-family:'Poppins';}
         
-        #driverModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 2000; padding: 20px;}
-        .modal-content { background: #fff; padding: 30px; border-radius: 8px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-        .modal-content select { width: 100%; padding: 12px; margin: 20px 0; border: 1px solid #ccc; outline: none; }
+        #driverModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 2000; padding: 20px;}
+        .modal-content { background: var(--white); padding: 30px; border-radius: 12px; width: 100%; max-width: 400px; text-align: center; border-top: 5px solid var(--brand-color);}
+        .modal-content select { width: 100%; padding: 14px; margin: 20px 0; border: 1px solid #ccc; outline: none; border-radius: 6px; font-family:'Poppins'; font-size:1rem;}
 
-        /* MOBILE RESPONSIVE FIXES */
+        /* Mobile Responsive */
         @media (max-width: 768px) {
             body { flex-direction: column; overflow: auto; }
             #dashboard { flex-direction: column; }
@@ -54,33 +56,33 @@
 <body>
     <div id="loginScreen">
         <div class="login-box">
-            <h2 style="color:var(--blue); margin-bottom:20px; font-weight:900;">Admin Secure Login</h2>
+            <h2 style="color:var(--brand-dark); margin-bottom:20px; font-weight:900;">ADMIN LOGIN</h2>
             <input type="text" id="username" placeholder="Username">
             <input type="password" id="password" placeholder="Password">
-            <button onclick="login()">LOGIN</button>
+            <button onclick="login()">SECURE ENTER</button>
         </div>
     </div>
 
     <div id="dashboard">
         <div class="sidebar">
-            <h2 style="margin-bottom: 20px; font-weight:900;">Admin Panel</h2>
+            <h2>Command Center</h2>
             <button class="tab-btn active" onclick="switchTab('bookings')">Bookings</button>
             <button class="tab-btn" onclick="switchTab('drivers')">Drivers</button>
-            <button class="tab-btn" onclick="switchTab('fleet')">Fleet Inventory</button>
-            <a href="driver-app.html" target="_blank" style="color:#26ca61; text-decoration:none; padding:10px; margin-top:10px; border: 1px solid #26ca61; text-align:center; border-radius:4px; font-weight:900; width:100%;">🚕 OPEN DRIVER APP</a>
-            <a href="index.html" style="color:#008cff; text-decoration:none; padding:10px; display:block; margin-top:10px; font-weight:700; text-align:center; width:100%;">Exit to Site</a>
+            <button class="tab-btn" onclick="switchTab('fleet')">Inventory</button>
+            <a href="driver-app.html" target="_blank" style="color:#26ca61; text-decoration:none; padding:10px; margin-top:10px; border: 2px solid #26ca61; text-align:center; border-radius:6px; font-weight:800; width:100%;">🚕 DRIVER APP</a>
+            <a href="index.html" style="color:var(--brand-color); text-decoration:none; padding:10px; display:block; margin-top:10px; font-weight:800; text-align:center; width:100%;">EXIT TO SITE</a>
         </div>
         <div class="main">
             <div id="bookings" class="panel active">
-                <h2 style="margin-bottom:10px;">Live Booking Requests</h2>
+                <h2 style="margin-bottom:15px; color:var(--brand-dark); font-weight:800;">Live Booking Requests</h2>
                 <table><thead><tr><th>Type & ID</th><th>Route</th><th>Vehicle</th><th>Customer</th><th>Status</th><th>Actions</th></tr></thead><tbody id="bookingsTable"></tbody></table>
             </div>
             <div id="drivers" class="panel">
-                <h2 style="margin-bottom:10px;">Manage Drivers</h2>
+                <h2 style="margin-bottom:15px; color:var(--brand-dark); font-weight:800;">Manage Drivers</h2>
                 <button class="btn-add" onclick="document.getElementById('driverForm').style.display='block'">+ ADD DRIVER</button>
                 <div id="driverForm" class="add-form">
                     <input type="text" id="d_name" placeholder="Driver Name">
-                    <input type="text" id="d_phone" placeholder="Phone">
+                    <input type="text" id="d_phone" placeholder="Phone (With Code)">
                     <input type="text" id="d_vehicle" placeholder="Assigned Vehicle">
                     <button class="btn-confirm" onclick="addRecord('driver')">SAVE</button>
                     <button class="btn-del" onclick="document.getElementById('driverForm').style.display='none'">CANCEL</button>
@@ -88,7 +90,7 @@
                 <table><thead><tr><th>Name</th><th>Phone</th><th>Vehicle</th><th>Action</th></tr></thead><tbody id="driversTable"></tbody></table>
             </div>
             <div id="fleet" class="panel">
-                <h2 style="margin-bottom:10px;">Manage Fleet</h2>
+                <h2 style="margin-bottom:15px; color:var(--brand-dark); font-weight:800;">Manage Fleet</h2>
                 <button class="btn-add" onclick="document.getElementById('fleetForm').style.display='block'">+ ADD VEHICLE</button>
                 <div id="fleetForm" class="add-form">
                     <input type="text" id="f_name" placeholder="Name"><input type="text" id="f_type" placeholder="Type"><input type="text" id="f_price" placeholder="Price"><input type="text" id="f_img" placeholder="Image URL"><input type="text" id="f_seats" placeholder="Seats"><input type="text" id="f_trans" placeholder="Trans"><input type="text" id="f_fuel" placeholder="Fuel">
@@ -102,23 +104,23 @@
 
     <div id="driverModal">
         <div class="modal-content">
-            <h2 style="color:var(--blue); font-weight:900;">Assign Driver & Dispatch</h2>
+            <h2 style="color:var(--brand-dark); font-weight:900;">Assign & Dispatch</h2>
             <select id="driverSelect"></select>
             <input type="hidden" id="temp_bid"><input type="hidden" id="temp_phone"><input type="hidden" id="temp_email"><input type="hidden" id="temp_pickup"><input type="hidden" id="temp_dropoff"><input type="hidden" id="temp_vehicle">
-            <button class="btn-confirm" style="width:100%; padding:12px;" onclick="finalizeBooking()">DISPATCH (Send to Client)</button>
-            <button class="btn-del" style="width:100%; padding:12px; margin-top:10px;" onclick="document.getElementById('driverModal').style.display='none'">CANCEL</button>
+            <button class="btn-confirm" style="width:100%; padding:15px; border-radius:6px; font-size:1.1rem; text-transform:uppercase;" onclick="finalizeBooking()">DISPATCH (Send WA)</button>
+            <button class="btn-del" style="width:100%; padding:15px; border-radius:6px; margin-top:10px; font-size:1.1rem; text-transform:uppercase;" onclick="document.getElementById('driverModal').style.display='none'">CANCEL</button>
         </div>
     </div>
 
     <script>
         async function login() {
             const btn = document.querySelector('.login-box button');
-            btn.innerText = "Checking...";
+            btn.innerText = "CHECKING...";
             try {
                 const res = await fetch('/api/admin/login', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({username: document.getElementById('username').value, password: document.getElementById('password').value}) });
                 if (res.ok) { document.getElementById('loginScreen').style.display = 'none'; document.getElementById('dashboard').style.display = 'flex'; loadAllData(); }
-                else { alert("Unauthorized: Invalid Credentials"); btn.innerText = "LOGIN"; }
-            } catch(e) { alert("Server Error: Database might be booting up."); btn.innerText = "LOGIN"; }
+                else { alert("Unauthorized"); btn.innerText = "SECURE ENTER"; }
+            } catch(e) { alert("Server Error"); btn.innerText = "SECURE ENTER"; }
         }
 
         function switchTab(t) { document.querySelectorAll('.panel, .tab-btn').forEach(x => x.classList.remove('active')); document.getElementById(t).classList.add('active'); event.target.classList.add('active'); }
@@ -126,16 +128,14 @@
         async function loadAllData() {
             try {
                 const bRes = await fetch('/api/admin/bookings'); const bData = await bRes.json();
-                document.getElementById('bookingsTable').innerHTML = bData.map(b => `<tr><td><strong>${b.trip_type}</strong><br>#${b.id}</td><td>${b.pickup} ➔ ${b.dropoff}</td><td>${b.vehicle}<br><small>${b.extra_details}</small></td><td>${b.customer_name}<br>📞 ${b.customer_phone}<br>✉️ ${b.customer_email}</td><td style="color:${b.status==='Confirmed'?'#26ca61':'#008cff'}; font-weight:700;">${b.status}<br><small style="color:#888;">${b.tracking_id || ''}</small></td><td>${b.status==='Pending' ? `<button class="btn-confirm" onclick="openDispatch(${b.id}, '${b.customer_phone}', '${b.customer_email}', '${b.pickup}', '${b.dropoff}', '${b.vehicle}')">Process</button>` : ''} <button class="btn-del" onclick="del('bookings', ${b.id})">Del</button></td></tr>`).join('');
+                document.getElementById('bookingsTable').innerHTML = bData.map(b => `<tr><td><strong>${b.trip_type}</strong><br>#${b.id}</td><td>${b.pickup} ➔ ${b.dropoff}</td><td>${b.vehicle}<br><small>${b.extra_details}</small></td><td>${b.customer_name}<br>📞 ${b.customer_phone}<br>✉️ ${b.customer_email}</td><td style="color:${b.status==='Confirmed'?'#26ca61':'#f7941d'}; font-weight:800;">${b.status}<br><small style="color:#888;">${b.tracking_id || ''}</small></td><td>${b.status==='Pending' ? `<button class="btn-confirm" onclick="openDispatch(${b.id}, '${b.customer_phone}', '${b.customer_email}', '${b.pickup}', '${b.dropoff}', '${b.vehicle}')">Process</button>` : ''} <button class="btn-del" onclick="del('bookings', ${b.id})">Del</button></td></tr>`).join('');
                 
                 const dRes = await fetch('/api/drivers'); const dData = await dRes.json();
                 document.getElementById('driversTable').innerHTML = dData.map(d => `<tr><td>${d.name}</td><td>${d.phone}</td><td>${d.vehicle}</td><td><button class="btn-del" onclick="del('drivers', ${d.id})">Del</button></td></tr>`).join('');
                 
                 const fRes = await fetch('/api/fleet'); const fData = await fRes.json();
                 document.getElementById('fleetTable').innerHTML = fData.map(f => `<tr><td>${f.name}</td><td>${f.price}</td><td>${f.type}</td><td><button class="btn-del" onclick="del('fleet', ${f.id})">Del</button></td></tr>`).join('');
-            } catch(e) {
-                console.error("Database fetch error");
-            }
+            } catch(e) {}
         }
 
         async function openDispatch(id, p, e, pu, dof, v) {
@@ -148,7 +148,7 @@
         async function finalizeBooking() {
             const id = document.getElementById('temp_bid').value;
             const [dName, dPhone] = document.getElementById('driverSelect').value.split('|');
-            document.querySelector('#driverModal .btn-confirm').innerText = "Processing...";
+            document.querySelector('#driverModal .btn-confirm').innerText = "PROCESSING...";
 
             const res = await fetch('/api/admin/confirm-booking', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({id, driver_name: dName, driver_phone: dPhone}) });
             const data = await res.json();
@@ -158,12 +158,11 @@
             const cPhone = document.getElementById('temp_phone').value;
             
             try { await puter.email.send(cEmail, `J&K Cabs: Ride Confirmed! #${id}`, `Your ride is confirmed.\nDriver: ${dName}\nPhone: ${dPhone}\nTrack: ${link}`); } catch(e){}
-            
             const msg = encodeURIComponent(`*Booking Confirmed!* \n*ID:* #${id} \n*Driver:* ${dName} \n*Phone:* ${dPhone} \n*Track:* ${link}`);
             window.open(`https://wa.me/${cPhone.replace(/\+/g, '')}?text=${msg}`, '_blank');
             
             document.getElementById('driverModal').style.display = 'none'; 
-            document.querySelector('#driverModal .btn-confirm').innerText = "DISPATCH (Send to Client)";
+            document.querySelector('#driverModal .btn-confirm').innerText = "DISPATCH (Send WA)";
             loadAllData();
         }
 
@@ -172,7 +171,6 @@
             await fetch(`/api/admin/add/${type}`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload) });
             document.querySelectorAll('.add-form').forEach(f => f.style.display = 'none'); loadAllData();
         }
-
         async function del(t, id) { if(confirm('Delete?')) { await fetch(`/api/admin/delete/${t}/${id}`, { method: 'DELETE' }); loadAllData(); } }
     </script>
 </body>

@@ -2,93 +2,106 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Customer Login | J&K Cabs</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Login | J&K Cabs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --blue: #008cff; --dark-blue: #051423; --light-gray: #f2f2f2; --text-dark: #000; --text-light: #4a4a4a; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Lato', sans-serif; }
-        body { background-color: var(--light-gray); color: var(--text-dark); display: flex; flex-direction: column; min-height: 100vh;}
-        
-        header { background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100; }
-        .navbar { display: flex; justify-content: space-between; align-items: center; width: 90%; max-width: 1200px; margin: auto; padding: 15px 0; }
-        .navbar h1 { font-size: 1.8rem; font-weight: 900; cursor: pointer; } .navbar h1 span { color: var(--blue); }
-        .nav-links { display: flex; gap: 25px; list-style: none; }
-        .nav-links a { text-decoration: none; color: var(--text-light); font-weight: 700; font-size: 0.9rem; text-transform: uppercase; transition: 0.3s; }
-        
-        .auth-container { width: 90%; max-width: 400px; margin: 60px auto; background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; }
-        .auth-container h2 { font-weight: 900; color: var(--dark-blue); margin-bottom: 20px; }
-        .input-box { width: 100%; padding: 12px 15px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; outline: none; }
-        .btn-main { width: 100%; padding: 12px; background: linear-gradient(93deg, #53b2fe, #065af3); color: #fff; border: none; font-size: 1rem; font-weight: 900; border-radius: 34px; cursor: pointer; text-transform: uppercase; }
-        .toggle-txt { margin-top: 15px; font-size: 0.9rem; color: var(--text-light); cursor: pointer; }
-        .toggle-txt span { color: var(--blue); font-weight: bold; }
+        :root { --brand-color: #f7941d; --brand-gradient: linear-gradient(135deg, #f7941d 0%, #f36f21 100%); --brand-dark: #222222; --bg-light: #f4f7f6; --text-dark: #333; --white: #fff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); display: flex; flex-direction: column; min-height: 100vh; }
 
-        .dashboard-container { width: 95%; max-width: 1000px; margin: 40px auto; display: none; }
-        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 10px;}
-        .dashboard-header h2 { font-weight: 900; font-size: 1.8rem; color: var(--dark-blue); }
-        .btn-logout { background: #ff4b4b; color: white; padding: 8px 20px; border: none; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        /* Themed Header */
+        .top-bar { background: var(--brand-gradient); color: var(--white); padding: 10px 5%; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; font-weight: 600; }
+        .top-bar-left span { margin-right: 15px; }
+        .top-bar-right a { color: var(--white); text-decoration: none; font-weight: 700; background: rgba(0,0,0,0.2); padding: 5px 12px; border-radius: 20px; }
+        header { background-color: var(--white); box-shadow: 0 4px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; width: 90%; max-width: 1200px; margin: auto; padding: 15px 0; }
+        .navbar h1 { font-size: 2rem; color: var(--brand-dark); font-weight: 800; cursor: pointer; text-transform: uppercase; } 
+        .navbar h1 span { color: var(--brand-color); }
+        .nav-links { display: flex; gap: 20px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 700; font-size: 0.95rem; text-transform: uppercase; transition: 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--brand-color); }
+
+        /* Auth Box */
+        .auth-container { width: 90%; max-width: 400px; margin: 60px auto; background: var(--white); padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 5px solid var(--brand-color); text-align: center; }
+        .auth-container h2 { font-weight: 800; color: var(--brand-dark); margin-bottom: 25px; text-transform: uppercase; }
+        .input-box { width: 100%; padding: 14px; margin-bottom: 15px; border: 2px solid #eee; border-radius: 6px; font-size: 1rem; outline: none; background: #fafafa;}
+        .input-box:focus { border-color: var(--brand-color); }
+        .btn-main { width: 100%; padding: 15px; background: var(--brand-dark); color: var(--white); border: none; font-size: 1.1rem; font-weight: 800; border-radius: 6px; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        .btn-main:hover { background: var(--brand-gradient); }
+        .toggle-txt { margin-top: 20px; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
+        .toggle-txt span { color: var(--brand-color); }
+
+        /* Dashboard */
+        .dashboard-container { width: 90%; max-width: 1000px; margin: 40px auto; display: none; }
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;}
+        .dashboard-header h2 { font-weight: 800; font-size: 2rem; color: var(--brand-dark); }
+        .btn-logout { background: #ff4b4b; color: white; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: 800; text-transform: uppercase;}
         
-        .bookings-grid { display: flex; flex-direction: column; gap: 20px; }
-        .booking-card { background: #fff; border-radius: 8px; padding: 25px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; border: 1px solid #e0e0e0; flex-wrap: wrap; gap: 15px;}
-        .route { font-size: 1.2rem; font-weight: 900; color: #000; margin-bottom: 5px; }
-        .details { color: #888; font-size: 0.9rem; }
-        .status-badge { padding: 5px 12px; border-radius: 20px; font-weight: 900; font-size: 0.8rem; text-transform: uppercase; display: inline-block;}
+        .booking-card { background: var(--white); border-radius: 8px; padding: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--brand-color); margin-bottom: 15px; flex-wrap: wrap; gap: 15px;}
+        .route { font-size: 1.2rem; font-weight: 800; color: var(--brand-dark); margin-bottom: 5px; }
+        .details { color: #666; font-size: 0.95rem; }
+        .status-badge { padding: 6px 15px; border-radius: 4px; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; }
         .status-pending { background: #fff3cd; color: #d4af37; }
         .status-confirmed { background: #d1fae5; color: #10B981; }
-        .btn-track { background: var(--blue); color: #fff; text-decoration: none; padding: 8px 15px; border-radius: 20px; font-size: 0.85rem; font-weight: 900; display: inline-block; margin-top: 10px; }
+        .btn-track { background: var(--brand-dark); color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 4px; font-size: 0.9rem; font-weight: 800; display: inline-block; margin-top: 10px; }
 
-        /* MOBILE FIXES */
+        /* Mobile CSS */
         @media (max-width: 768px) {
+            .top-bar { flex-direction: column; text-align: center; gap: 10px; }
             .navbar { flex-direction: column; gap: 15px; }
-            .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px;}
-            .auth-container { padding: 25px; margin: 40px auto;}
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .auth-container { margin: 30px auto; padding: 25px; }
             .booking-card { flex-direction: column; align-items: flex-start; }
             .actions { width: 100%; text-align: left; }
         }
     </style>
 </head>
 <body>
-
+    <div class="top-bar">
+        <div class="top-bar-left"><span>📞 +91-7006268328</span><span>✉️ sofiparvaiz114@gmail.com</span></div>
+        <div class="top-bar-right"><a href="customer.html">My Account</a></div>
+    </div>
     <header>
         <div class="navbar">
-            <h1 onclick="window.location.href='index.html'">J&K<span>Cabs</span></h1>
+            <h1 onclick="window.location.href='index.html'">J&K<span> Cabs</span></h1>
             <ul class="nav-links">
-                <li><a href="index.html">Book Cabs</a></li>
-                <li><a href="destinations.html">Destinations</a></li>
-                <li><a href="fleet.html">Our Fleet</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="fleet.html">Vehicles</a></li>
                 <li><a href="tracking.html">Track Ride</a></li>
+                <li><a href="customer.html" class="active">Login</a></li>
             </ul>
         </div>
     </header>
 
     <div class="auth-container" id="authBox">
-        <h2 id="authTitle">Customer Login</h2>
+        <h2 id="authTitle">Secure Login</h2>
         <form id="authForm">
             <input type="text" id="name" class="input-box" placeholder="Full Name" style="display: none;">
-            <input type="text" id="phone" class="input-box" placeholder="Phone Number" style="display: none;">
+            <input type="text" id="phone" class="input-box" placeholder="WhatsApp Number" style="display: none;">
             <input type="email" id="email" class="input-box" required placeholder="Email Address">
             <input type="password" id="password" class="input-box" required placeholder="Password">
-            <button type="submit" class="btn-main" id="authBtn">Login</button>
+            <button type="submit" class="btn-main" id="authBtn">LOGIN</button>
         </form>
-        <p class="toggle-txt" id="toggleMode">Don't have an account? <span>Sign Up</span></p>
+        <p class="toggle-txt" id="toggleMode">New user? <span>Create an account</span></p>
     </div>
 
     <div class="dashboard-container" id="dashBox">
         <div class="dashboard-header">
-            <h2>Welcome, <span id="userName" style="color:var(--blue);"></span>!</h2>
-            <button class="btn-logout" onclick="logout()">Logout</button>
+            <h2>Welcome, <span id="userName" style="color:var(--brand-color);"></span></h2>
+            <button class="btn-logout" onclick="logout()">LOGOUT</button>
         </div>
-        <h3 style="margin-bottom: 15px; color: var(--text-light);">My Trip History</h3>
-        <div class="bookings-grid" id="bookingsGrid"></div>
+        <h3 style="margin-bottom: 20px; color: var(--brand-dark);">Your Trip History</h3>
+        <div id="bookingsGrid"></div>
     </div>
 
     <script>
         let isLogin = true;
-
         document.getElementById('toggleMode').addEventListener('click', () => {
             isLogin = !isLogin;
-            document.getElementById('authTitle').innerText = isLogin ? "Customer Login" : "Create Account";
-            document.getElementById('authBtn').innerText = isLogin ? "Login" : "Sign Up";
-            document.getElementById('toggleMode').innerHTML = isLogin ? "Don't have an account? <span>Sign Up</span>" : "Already have an account? <span>Login</span>";
+            document.getElementById('authTitle').innerText = isLogin ? "Secure Login" : "Create Account";
+            document.getElementById('authBtn').innerText = isLogin ? "LOGIN" : "SIGN UP";
+            document.getElementById('toggleMode').innerHTML = isLogin ? "New user? <span>Create an account</span>" : "Have an account? <span>Login</span>";
             document.getElementById('name').style.display = isLogin ? "none" : "block";
             document.getElementById('phone').style.display = isLogin ? "none" : "block";
             document.getElementById('name').required = !isLogin; 
@@ -98,7 +111,8 @@
         document.getElementById('authForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('authBtn');
-            btn.innerText = "Please wait...";
+            btn.innerText = "PROCESSING...";
+            
             const endpoint = isLogin ? '/api/customer/login' : '/api/customer/signup';
             const payload = { email: document.getElementById('email').value, password: document.getElementById('password').value };
             if(!isLogin) { payload.name = document.getElementById('name').value; payload.phone = document.getElementById('phone').value; }
@@ -107,11 +121,8 @@
                 const res = await fetch(endpoint, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
                 const data = await res.json();
                 if(res.ok) { localStorage.setItem('customer', JSON.stringify(data)); checkAuth(); } 
-                else { alert(data.error || "Database error. Please try again."); btn.innerText = isLogin ? "Login" : "Sign Up"; }
-            } catch(err) {
-                alert("Server Connection Failed. Database might be initializing.");
-                btn.innerText = isLogin ? "Login" : "Sign Up";
-            }
+                else { alert(data.error); btn.innerText = isLogin ? "LOGIN" : "SIGN UP"; }
+            } catch(err) { alert("Server connection failed."); btn.innerText = isLogin ? "LOGIN" : "SIGN UP"; }
         });
 
         function logout() { localStorage.removeItem('customer'); location.reload(); }
@@ -128,27 +139,24 @@
                     const bookings = await res.json();
                     const grid = document.getElementById('bookingsGrid');
                     
-                    if(!bookings || bookings.length === 0) {
-                        grid.innerHTML = `<div style="background:#fff; padding:40px; text-align:center; border-radius:8px;">You haven't booked any rides yet. <br><br><a href="index.html" class="btn-track" style="margin-top:10px;">Book a Cab</a></div>`;
+                    if(bookings.length === 0) {
+                        grid.innerHTML = `<div style="text-align:center; padding:40px; background:#fff; border-radius:8px;">No bookings found. <br><br><a href="index.html" class="btn-track">Book Now</a></div>`;
                         return;
                     }
-
                     grid.innerHTML = bookings.map(b => `
                         <div class="booking-card">
                             <div>
                                 <div class="route">${b.pickup} ➔ ${b.dropoff}</div>
-                                <div class="details">Vehicle: <strong>${b.vehicle}</strong> | Booking ID: #${b.id}</div>
-                                ${b.assigned_driver ? `<div class="details" style="margin-top:5px; color:#000;">Driver: ${b.assigned_driver} (📞 ${b.driver_phone})</div>` : ''}
+                                <div class="details">Type: <strong>${b.trip_type}</strong> | Vehicle: <strong>${b.vehicle}</strong></div>
+                                ${b.assigned_driver ? `<div class="details" style="color:var(--brand-color); font-weight:bold; margin-top:5px;">Driver: ${b.assigned_driver} (📞 ${b.driver_phone})</div>` : ''}
                             </div>
                             <div class="actions">
                                 <div class="status-badge ${b.status === 'Pending' ? 'status-pending' : 'status-confirmed'}">${b.status}</div>
-                                ${b.tracking_id ? `<br><a href="tracking.html?id=${b.tracking_id}" class="btn-track">Track Live 📍</a>` : ''}
+                                ${b.tracking_id ? `<br><a href="tracking.html?id=${b.tracking_id}" class="btn-track">TRACK LIVE</a>` : ''}
                             </div>
                         </div>
                     `).join('');
-                } catch(e) {
-                    console.error("Failed to fetch user bookings");
-                }
+                } catch(e) {}
             }
         }
         checkAuth();

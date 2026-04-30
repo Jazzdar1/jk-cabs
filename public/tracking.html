@@ -3,157 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Track Ride | J&K Cabs (Amazon Maps)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
-    
+    <title>Track Ride | J&K Cabs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
     <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
-
     <style>
-        :root { --blue: #008cff; --light-gray: #f2f2f2; --text-dark: #000; }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Lato', sans-serif; }
-        body { background-color: #fff; color: var(--text-dark); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
-        header { background-color: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1); z-index: 100; flex-shrink: 0; }
+        :root { --brand-color: #f7941d; --brand-gradient: linear-gradient(135deg, #f7941d 0%, #f36f21 100%); --brand-dark: #222222; --bg-light: #f4f7f6; --text-dark: #333; --white: #fff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-light); color: var(--text-dark); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+
+        /* THEMED HEADER */
+        .top-bar { background: var(--brand-gradient); color: var(--white); padding: 8px 5%; display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; font-weight: 600; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
+        .top-bar-left span { margin-right: 25px; }
+        .top-bar-right a { color: var(--white); text-decoration: none; font-weight: 700; background: rgba(0,0,0,0.2); padding: 5px 12px; border-radius: 20px; transition: 0.3s;}
+        
+        header { background-color: var(--white); box-shadow: 0 4px 15px rgba(0,0,0,0.05); z-index: 100; flex-shrink: 0;}
         .navbar { display: flex; justify-content: space-between; align-items: center; width: 90%; max-width: 1200px; margin: auto; padding: 15px 0; }
-        .navbar h1 { font-size: 1.8rem; font-weight: 900; cursor: pointer; } .navbar h1 span { color: var(--blue); }
-        .nav-links { display: flex; gap: 25px; list-style: none; }
-        .nav-links a { text-decoration: none; color: #4a4a4a; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; }
-        .tracking-layout { display: flex; flex: 1; height: 100%; }
-        .dashboard-panel { width: 350px; background: #fff; border-right: 1px solid #e0e0e0; padding: 30px; box-shadow: 2px 0 10px rgba(0,0,0,0.05); z-index: 10;}
-        .search-box input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 15px; outline: none; }
-        .search-box button { width: 100%; padding: 12px; background: linear-gradient(93deg, #53b2fe, #065af3); color: #fff; border: none; font-weight: 900; border-radius: 34px; cursor: pointer; }
-        .stat-card { background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #e0e0e0; margin-top: 15px; }
-        .stat-card label { display: block; font-size: 0.8rem; color: #888; font-weight: 700; margin-bottom: 5px; }
-        .val { font-size: 1.1rem; font-weight: 900; color: #000; }
+        .navbar h1 { font-size: 2rem; color: var(--brand-dark); font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: -1px;} 
+        .navbar h1 span { color: var(--brand-color); }
+        .nav-links { display: flex; gap: 20px; list-style: none; }
+        .nav-links a { text-decoration: none; color: var(--text-dark); font-weight: 700; font-size: 0.95rem; text-transform: uppercase; padding-bottom: 3px; transition: 0.3s;}
+        .nav-links a:hover, .nav-links a.active { color: var(--brand-color); border-bottom: 3px solid var(--brand-color); }
+
+        /* TRACKING LAYOUT */
+        .tracking-layout { display: flex; flex: 1; height: 100%; overflow: hidden;}
+        .dashboard-panel { width: 350px; background: var(--white); border-right: 1px solid #e0e0e0; padding: 25px; box-shadow: 2px 0 15px rgba(0,0,0,0.05); z-index: 10; overflow-y:auto;}
+        .search-box input { width: 100%; padding: 14px; border: 2px solid #ddd; border-radius: 6px; margin-bottom: 15px; outline: none; font-family:'Poppins'; font-size:1rem;}
+        .search-box input:focus { border-color: var(--brand-color); }
+        .search-box button { width: 100%; padding: 14px; background: var(--brand-dark); color: #fff; border: none; font-weight: 800; font-size: 1.05rem; border-radius: 6px; cursor: pointer; text-transform:uppercase; font-family:'Poppins'; transition: 0.3s;}
+        .search-box button:hover { background: var(--brand-gradient); }
+        
+        .stat-card { background: #fafafa; padding: 15px; border-radius: 8px; border: 1px solid #eee; margin-top: 15px; border-left: 4px solid var(--brand-color);}
+        .stat-card label { display: block; font-size: 0.8rem; color: #888; font-weight: 700; margin-bottom: 5px; text-transform:uppercase;}
+        .val { font-size: 1.1rem; font-weight: 900; color: var(--brand-dark); }
         #map { flex: 1; height: 100%; background: #e5e3df; position: relative;}
+
+        /* MOBILE FIXES */
+        @media (max-width: 768px) {
+            .top-bar { display:none; }
+            .navbar { flex-direction: column; gap: 10px; padding: 10px 0;}
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .tracking-layout { flex-direction: column; }
+            .dashboard-panel { width: 100%; height: auto; max-height: 45vh; border-bottom: 2px solid #eee;}
+        }
     </style>
 </head>
 <body>
+    <div class="top-bar"><div class="top-bar-left"><span>📞 +91-7006268328</span><span>✉️ sofiparvaiz114@gmail.com</span></div><div class="top-bar-right" id="authLinks"><a href="customer.html">Login</a></div></div>
     <header>
         <div class="navbar">
-            <h1 onclick="window.location.href='index.html'">J&K<span>Cabs</span></h1>
+            <h1 onclick="window.location.href='index.html'">J&K<span> Cabs</span></h1>
             <ul class="nav-links">
-                <li><a href="index.html">Book Cabs</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="destinations.html">Destinations</a></li>
-                <li><a href="fleet.html">Our Fleet</a></li>
-                <li><a href="tracking.html" style="color:var(--blue);">Track Ride</a></li>
-                <li><a href="customer.html">My Account</a></li>
+                <li><a href="fleet.html">Vehicles</a></li>
+                <li><a href="tracking.html" class="active">Track</a></li>
             </ul>
         </div>
     </header>
+
     <div class="tracking-layout">
         <div class="dashboard-panel">
-            <h2 style="margin-bottom:20px; font-weight:900;">Amazon GPS Track</h2>
+            <h2 style="margin-bottom:20px; font-weight:900; color:var(--brand-dark); text-transform:uppercase;">Locate Ride</h2>
             <div class="search-box">
-                <input type="text" id="trackInput" placeholder="Enter Tracking ID (e.g. TRK-)">
-                <button onclick="startLiveTracking()">Locate Vehicle</button>
+                <input type="text" id="trackInput" placeholder="Tracking ID (e.g. TRK-)">
+                <button onclick="startLiveTracking()">Find Vehicle</button>
             </div>
             <div id="stats" style="display:none;">
                 <div class="stat-card"><label>Status</label><div class="val" style="color:#26ca61;" id="statusVal">Waiting for GPS...</div></div>
                 <div class="stat-card"><label>Route</label><div class="val" id="routeVal">...</div></div>
                 <div class="stat-card"><label>Chauffeur</label><div class="val" id="driverVal">...</div></div>
-                <div class="stat-card"><label>Live Speed</label><div class="val" id="speedVal" style="color:#008cff;">0 km/h</div></div>
+                <div class="stat-card"><label>Live Speed</label><div class="val" id="speedVal" style="color:var(--brand-color);">0 km/h</div></div>
             </div>
         </div>
         <div id="map"></div>
     </div>
 
     <script>
-        // ==========================================
-        // ⚠️ AMAZON LOCATION SERVICE CONFIGURATION ⚠️
-        // ==========================================
-        // REPLACE THESE 3 VALUES WITH YOUR AWS DETAILS
+        // AMAZON AWS CONFIGURATION
         const AWS_REGION = "ap-south-1"; // Your AWS Region (e.g., ap-south-1 for Mumbai)
         const AWS_MAP_NAME = "cabservice"; // The name of the map you created in AWS
         const AWS_API_KEY = "v1.public.eyJqdGkiOiI2MmU5OWUzNS00NWYzLTQwMzMtYjk5ZS05NzFjMDU4YjIyNDIifWUKSdp7mkx30Te5GYlvgfkyA3ddOo8JPvQ82szWXYQaOHhfWMzeUOWl7nFXOowxQ4fZz8GBVTTqn_ssXVWYsmwmGXB6hXkdz61p91b-hVooOwhO7uksbe6YfMasC3-G_RtknSqzGREtUzL8hyR4j1Kax20yapYEa4y51LWi1v8tsaW5wiDrTI6d6wcWGasdQoOhkJ6sFdtv7QjCvOobYhM_PHXzyaQYcTdb2doupz9eF3mzw-E9y4aywzjp9LQVOJiMqt3b23fumm1phwWhkUE4Ko_sSD0aC2DcSeaUw2eKCckgQnbjS08mC_k00BNPbMt2428TNTOKngo3UtFY1jc.Njg1MGZlZTUtYTI2ZS00MDdlLWJjNDktMDNmZDlkNzVmMjQ0"; // Your Amazon Location API Key
-        // ==========================================
+        // 
 
         let map, carMarker;
         let pollingInterval = null;
 
-        // Initialize MapLibre with Amazon Location Style
+        const user = JSON.parse(localStorage.getItem('customer'));
+        if(user) document.getElementById('authLinks').innerHTML = `<a href="customer.html">Dashboard</a>`;
+
         function initMap() {
             try {
                 const styleUrl = `https://maps.geo.${AWS_REGION}.amazonaws.com/maps/v0/maps/${AWS_MAP_NAME}/style-descriptor?key=${AWS_API_KEY}`;
-                
-                map = new maplibregl.Map({
-                    container: 'map',
-                    style: styleUrl,
-                    center: [74.7973, 34.0837], // Srinagar Coordinates [Lng, Lat]
-                    zoom: 12
-                });
-
+                map = new maplibregl.Map({ container: 'map', style: styleUrl, center: [74.7973, 34.0837], zoom: 12 });
                 map.addControl(new maplibregl.NavigationControl(), 'top-right');
-
-                // Check if ID is passed in URL
-                if (new URLSearchParams(window.location.search).get('id')) { 
-                    document.getElementById('trackInput').value = new URLSearchParams(window.location.search).get('id'); 
-                    // Small delay to ensure map loads before fetching
-                    setTimeout(startLiveTracking, 1000); 
-                }
-            } catch (e) {
-                console.log("Error loading Map. Check your AWS details.");
-            }
+            } catch (e) {}
         }
-
-        // Initialize on window load
         window.onload = initMap;
 
         function startLiveTracking() {
             const trackId = document.getElementById('trackInput').value;
-            if(!trackId) return alert("Please enter a Tracking ID");
-
+            if(!trackId) return alert("Please enter Tracking ID");
             document.getElementById('stats').style.display = 'block';
-            
-            // Clear any existing polling
             if(pollingInterval) clearInterval(pollingInterval);
-
-            // Fetch immediately, then poll every 3 seconds
             fetchLiveData(trackId);
             pollingInterval = setInterval(() => fetchLiveData(trackId), 3000);
         }
 
         async function fetchLiveData(id) {
             try {
-                const res = await fetch(`/api/track/${id}`); 
-                const data = await res.json();
-                
-                if(data.error) {
-                    clearInterval(pollingInterval);
-                    return alert("ID Not Found! Make sure you entered a valid TRK- code.");
-                }
+                const res = await fetch(`/api/track/${id}`); const data = await res.json();
+                if(data.error) { clearInterval(pollingInterval); return alert("ID Not Found"); }
 
                 document.getElementById('routeVal').innerText = `${data.pickup} ➔ ${data.dropoff}`;
-                document.getElementById('driverVal').innerHTML = `${data.assigned_driver}<br><span style="font-size:0.8rem;color:#888;">${data.vehicle}</span>`;
+                document.getElementById('driverVal').innerHTML = `${data.assigned_driver}<br><small style="color:#666;">${data.vehicle}</small>`;
 
-                // Check if Real Coordinates exist (from Driver App)
                 if (data.current_lat && data.current_lng) {
                     document.getElementById('statusVal').innerText = "Live GPS Active";
                     document.getElementById('speedVal').innerText = `${data.live_speed || 0} km/h`;
-
-                    const livePosition = [parseFloat(data.current_lng), parseFloat(data.current_lat)]; // MapLibre uses [Lng, Lat]
+                    const livePosition = [parseFloat(data.current_lng), parseFloat(data.current_lat)];
 
                     if(!carMarker) {
-                        // Create marker if it doesn't exist
-                        const el = document.createElement('div');
-                        el.innerHTML = '🚕';
-                        el.style.fontSize = '30px';
+                        const el = document.createElement('div'); el.innerHTML = '🚕'; el.style.fontSize = '30px';
                         carMarker = new maplibregl.Marker(el).setLngLat(livePosition).addTo(map);
-                    } else {
-                        // Update marker position
-                        carMarker.setLngLat(livePosition);
-                    }
-                    
-                    // Keep map centered on the car
+                    } else { carMarker.setLngLat(livePosition); }
                     map.flyTo({ center: livePosition, zoom: 15 });
-
-                } else {
-                    document.getElementById('statusVal').innerText = "Waiting for Driver GPS...";
                 }
-
-            } catch(e) {
-                console.log("Polling error or Server Offline.");
-            }
+            } catch(e) {}
         }
     </script>
 </body>

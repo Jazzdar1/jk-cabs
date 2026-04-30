@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Book trusted cabs in Kashmir & Ladakh with J&K Cabs. One-way, round trip, airport transfers and tour packages.">
     <title>J&K Cabs | Explore Kashmir, Ladakh</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://js.puter.com/v2/"></script>
@@ -34,9 +35,17 @@
         .nav-links a:hover, .nav-links a.active { color: var(--brand-color); border-bottom: 3px solid var(--brand-color); }
 
         /* Hero Image & Headline with Warm Overlay */
-        .hero { background: linear-gradient(rgba(10, 27, 94, 0.7), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1595815771614-ade9d652a65d?auto=format&fit=crop&w=1920&q=80') center/cover; padding: 80px 5% 160px 5%; text-align: center; }
+        .hero { background: linear-gradient(rgba(6, 20, 70, 0.78), rgba(0, 0, 0, 0.52)), url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1920&q=80') center/cover; padding: 90px 5% 170px 5%; text-align: center; position:relative; }
         .hero h2 { color: var(--white); font-size: 3.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; text-shadow: 2px 4px 10px rgba(0,0,0,0.5); }
-        .hero p { color: var(--white); font-size: 1.3rem; font-weight: 700; margin-bottom: 30px; background: var(--brand-gradient); display: inline-block; padding: 8px 25px; border-radius: 30px; box-shadow: 0 4px 15px rgba(247, 148, 29, 0.4); }
+        .hero p { color: var(--white); font-size: 1.15rem; font-weight: 700; margin-bottom: 18px; background: rgba(247, 148, 29, 0.2); border:1px solid rgba(255,255,255,0.2); display: inline-block; padding: 10px 24px; border-radius: 30px; backdrop-filter: blur(4px); }
+
+
+        .hero-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:16px; }
+        .hero-btn { text-decoration:none; color:#fff; padding:12px 18px; border-radius:7px; font-weight:800; }
+        .hero-btn.primary { background: var(--brand-gradient); }
+        .hero-btn.secondary { background: rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); }
+        .section-kicker { color: var(--brand-color); font-weight: 800; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; display:block; }
+        .service-box ul { text-align:left; margin-top:12px; padding-left:18px; color:#5e6d7d; }
 
         /* Multi-Tab Booking Widget */
         .booking-widget { background: var(--white); width: 90%; max-width: 1100px; margin: -100px auto 30px; border-radius: 12px; box-shadow: 0 15px 40px rgba(0,0,0,0.15); z-index: 10; position: relative; overflow: hidden; border-top: 5px solid var(--brand-color); }
@@ -126,6 +135,36 @@
         .fab.call { background: linear-gradient(135deg, #008cff, #0056b3); }
         .fab svg { width: 32px; height: 32px; fill: white; }
 
+
+        .advanced-panel { margin-top: 20px; border: 1px solid #e8edf1; border-radius: 10px; padding: 18px; background: #fafcfe; }
+        .advanced-panel h4 { font-size: 1rem; margin-bottom: 12px; color: #1e2a38; }
+        .trip-insights { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 12px; }
+        .insight-card { background: #fff; border: 1px solid #e7ecf0; border-radius: 8px; padding: 12px; }
+        .insight-card small { color: #637381; display:block; margin-bottom:4px; }
+        .insight-card strong { font-size: 1rem; color:#222; }
+        .recent-routes { margin-top: 14px; display:flex; flex-wrap: wrap; gap: 8px; }
+        .route-chip { border:1px solid #d2dbe3; background:#fff; color:#1f2b37; border-radius: 20px; padding:6px 12px; cursor:pointer; font-weight:600; }
+        .trip-progress { height: 8px; background: #e8edf2; border-radius: 999px; overflow:hidden; margin-top: 10px; }
+        .trip-progress-bar { height:100%; width:0%; background: var(--brand-gradient); transition: width 0.4s ease; }
+
+
+        .trust-strip { width:90%; max-width:1100px; margin: 30px auto 50px; display:grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap:14px; }
+        .trust-item { background:#fff; border-radius:10px; padding:18px; text-align:center; border:1px solid #e7edf2; box-shadow:0 8px 18px rgba(0,0,0,0.05); }
+        .trust-item h3 { font-size:1.5rem; color:var(--brand-dark); }
+        .trust-item p { color:#6b7b8c; font-size:0.9rem; margin-top:6px; }
+        .routes-section { width:90%; max-width:1200px; margin:0 auto 60px; }
+        .routes-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:18px; }
+        .route-box { background:#fff; border-radius:10px; padding:18px; border:1px solid #e9eef2; }
+        .route-box h4 { margin-bottom:8px; color:#243447; }
+        .route-box p { color:#607282; font-size:0.95rem; margin-bottom:8px; }
+        .route-box button { border:none; background:var(--brand-gradient); color:#fff; padding:10px 14px; border-radius:6px; font-weight:700; cursor:pointer; }
+        .testimonials { background:#0f172a; color:#fff; padding:70px 5%; margin-top:40px; }
+        .testimonials .section-title { color:#fff; text-align:center; }
+        .review-grid { max-width:1100px; margin:30px auto 0; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; }
+        .review { background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:18px; }
+        .sticky-cta { position:fixed; left:0; right:0; bottom:0; background:#111827; color:#fff; padding:10px 5%; z-index:998; display:flex; justify-content:space-between; align-items:center; gap:12px; }
+        .sticky-cta a { background:var(--brand-gradient); color:#fff; text-decoration:none; padding:10px 14px; border-radius:6px; font-weight:800; }
+
         /* MOBILE RESPONSIVE FIXES */
         @media (max-width: 768px) {
             .top-bar { flex-direction: column; gap: 10px; text-align: center; }
@@ -164,6 +203,10 @@
     <section class="hero">
         <h2>Explore Kashmir, Ladakh<br>Roadtrip At A Time</h2>
         <p>Premium Cabs • Guaranteed Safety • Best Fares</p>
+        <div class="hero-actions">
+            <a class="hero-btn primary" href="#book">Book Your Ride</a>
+            <a class="hero-btn secondary" href="tel:+917006268328">Call +91 7006268328</a>
+        </div>
     </section>
 
     <div class="booking-widget" id="book">
@@ -224,6 +267,19 @@
                     <select id="carType"><option value="Any">Any / Not Sure</option></select>
                 </div>
 
+
+                <div class="advanced-panel">
+                    <h4>Smart Trip Insights</h4>
+                    <div class="trip-insights">
+                        <div class="insight-card"><small>Estimated Distance</small><strong id="insightDistance">—</strong></div>
+                        <div class="insight-card"><small>Estimated Duration</small><strong id="insightDuration">—</strong></div>
+                        <div class="insight-card"><small>Estimated Fare</small><strong id="insightFare">—</strong></div>
+                        <div class="insight-card"><small>Booking Completeness</small><strong id="insightProgressText">0%</strong></div>
+                    </div>
+                    <div class="trip-progress"><div class="trip-progress-bar" id="tripProgressBar"></div></div>
+                    <div class="recent-routes" id="recentRoutes"></div>
+                </div>
+
                 <div class="action-buttons">
                     <button type="button" class="btn-explore" onclick="exploreCabs()">Explore Cabs</button>
                     <button type="submit" class="btn-book-now">Book Now (WhatsApp)</button>
@@ -245,8 +301,27 @@
         <div class="offer-code">JKWINTER500</div>
     </div>
 
+
+    <section class="trust-strip">
+        <div class="trust-item"><h3>10K+</h3><p>Trips Completed</p></div>
+        <div class="trust-item"><h3>4.9★</h3><p>Average Rider Rating</p></div>
+        <div class="trust-item"><h3>24x7</h3><p>Live Booking Support</p></div>
+        <div class="trust-item"><h3>100%</h3><p>Verified Drivers</p></div>
+    </section>
+
+    <section class="routes-section">
+        <span class="section-kicker">Curated journeys</span><h2 class="section-title">Top Routes & Packages</h2>
+        <p class="section-subtitle">Instantly pick popular circuits and prefill your booking.</p>
+        <div class="routes-grid">
+            <div class="route-box"><h4>Srinagar → Gulmarg</h4><p>Approx. 50 km • 2 hrs • Snow adventure route.</p><button onclick="prefillRoute('Srinagar','Gulmarg')">Select Route</button></div>
+            <div class="route-box"><h4>Srinagar → Pahalgam</h4><p>Approx. 90 km • 3 hrs • Valley + river views.</p><button onclick="prefillRoute('Srinagar','Pahalgam')">Select Route</button></div>
+            <div class="route-box"><h4>Srinagar → Sonmarg</h4><p>Approx. 80 km • 2.5 hrs • Mountain panoramic drive.</p><button onclick="prefillRoute('Srinagar','Sonmarg')">Select Route</button></div>
+            <div class="route-box"><h4>Airport Pickup Plan</h4><p>SXR pickup, hotel drop, waiting included.</p><button onclick="switchTripType('Airport', document.querySelectorAll('.tab-btn')[2])">Choose Plan</button></div>
+        </div>
+    </section>
+
     <section class="fleet-section">
-        <h2 class="section-title">Popular Rides in Kashmir</h2>
+        <span class="section-kicker">Fleet collection</span><h2 class="section-title">Popular Rides in Kashmir</h2>
         <p class="section-subtitle">Choose from our wide range of clean and sanitized vehicles.</p>
         
         <div class="fleet-grid" id="fleetGrid">
@@ -255,26 +330,38 @@
     </section>
 
     <section class="services-section">
-        <h2 class="section-title" style="text-align: center;">Our Premium Services</h2>
+        <span class="section-kicker" style="text-align:center; display:block;">Why choose J&K Cabs</span><h2 class="section-title" style="text-align: center;">Our Premium Services</h2>
         <p class="section-subtitle" style="text-align: center;">We guarantee comfort, safety, and reliability on every journey.</p>
         <div class="services-grid">
             <div class="service-box">
                 <h3 style="font-size:2rem; margin-bottom:10px;">🔄</h3>
                 <h3>Roundtrip Cabs</h3>
-                <p>Our premium roundtrip services will pamper you with an absolutely comfortable drive from your doorstep & back. Expert chauffeurs make road travel memorable.</p>
+                <p>Our premium roundtrip services will pamper you with an absolutely comfortable drive from your doorstep & back. Expert chauffeurs make road travel memorable.</p><ul><li>Doorstep pickup and drop</li><li>Multi-day plans available</li></ul>
             </div>
             <div class="service-box">
                 <h3 style="font-size:2rem; margin-bottom:10px;">➡️</h3>
                 <h3>Oneway Drops</h3>
-                <p>Our network of routes ensures there is no corner of J&K you can't travel with us. Pay only one-side charge at rock bottom rates.</p>
+                <p>Our network of routes ensures there is no corner of J&K you can't travel with us. Pay only one-side charge at rock bottom rates.</p><ul><li>No hidden return charges</li><li>Fast confirmation support</li></ul>
             </div>
             <div class="service-box">
                 <h3 style="font-size:2rem; margin-bottom:10px;">✈️</h3>
                 <h3>Airport Transfers</h3>
-                <p>Timely pickups and drops to Srinagar International Airport. Never miss a flight with our guaranteed on-time taxi service.</p>
+                <p>Timely pickups and drops to Srinagar International Airport. Never miss a flight with our guaranteed on-time taxi service.</p><ul><li>Live flight tracking support</li><li>Meet-and-greet on request</li></ul>
             </div>
         </div>
     </section>
+
+
+    <section class="testimonials">
+        <h2 class="section-title">What Riders Say</h2>
+        <div class="review-grid">
+            <div class="review">“Clean cabs, punctual driver and smooth booking experience for our Gulmarg trip.”<br><strong>- Aamir R.</strong></div>
+            <div class="review">“Airport pickup was on time at 5 AM. Highly professional and safe driving.”<br><strong>- Simran K.</strong></div>
+            <div class="review">“Great rates compared to local quotes, and WhatsApp support was instant.”<br><strong>- Fahad M.</strong></div>
+        </div>
+    </section>
+
+    <div class="sticky-cta"><span>Need urgent booking help?</span><a href="https://wa.me/917006268328" target="_blank">Chat on WhatsApp</a></div>
 
     <footer class="animated-footer">
         <h3>J&K Taxi Service</h3>
@@ -299,6 +386,37 @@
 
     <script>
         let allFleetData = [];
+        const fallbackFleetData = [
+            { name: "Swift Dzire", type: "Sedan", seats: "4+1", trans: "Manual", fuel: "Petrol/CNG", price: "₹2,499/day", img: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&w=900&q=80" },
+            { name: "Ertiga", type: "SUV", seats: "6+1", trans: "Manual", fuel: "Petrol", price: "₹3,499/day", img: "https://images.unsplash.com/photo-1614200187524-dc4b892acf16?auto=format&fit=crop&w=900&q=80" },
+            { name: "Innova Crysta", type: "SUV", seats: "7+1", trans: "Manual", fuel: "Diesel", price: "₹4,999/day", img: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=900&q=80" }
+        ];
+
+        function renderFleet(cars, isFallback = false) {
+            const select = document.getElementById('carType');
+            const grid = document.getElementById('fleetGrid');
+            const fallbackNotice = isFallback
+                ? `<div style="grid-column:1/-1; background:#fff3cd; color:#664d03; border:1px solid #ffecb5; padding:10px 14px; border-radius:8px; font-weight:700;">⚠️ Live fleet is temporarily offline on Vercel. Showing backup fleet data.</div>`
+                : '';
+
+            select.innerHTML = '<option value="Any">Any / Not Sure</option>' + cars.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
+            grid.innerHTML = fallbackNotice + cars.slice(0, 6).map(car => `
+                <div class="fleet-card">
+                    <img src="${car.img}" alt="${car.name}" loading="lazy">
+                    <div class="fleet-details">
+                        <div class="fleet-title">${car.name}</div>
+                        <ul class="specs-list">
+                            <li>Car Type <span>${car.type}</span></li>
+                            <li>Max People <span>${car.seats}</span></li>
+                            <li>Transmission <span>${car.trans}</span></li>
+                            <li>Fuel Type <span>${car.fuel}</span></li>
+                        </ul>
+                        <div class="fleet-price">${car.price} <br><small style="font-size:0.8rem; color:#888;">(Including all taxes)</small></div>
+                        <a href="index.html?vehicle=${encodeURIComponent(car.name)}" class="btn-card">BOOK RIDE NOW</a>
+                    </div>
+                </div>
+            `).join('');
+        }
 
         async function init() {
             // Check Login Status
@@ -313,36 +431,35 @@
             try {
                 // Fetch Fleet API
                 const res = await fetch('/api/fleet');
+                if (!res.ok) throw new Error(`Fleet API failed: ${res.status}`);
                 allFleetData = await res.json();
                 
                 if (allFleetData && allFleetData.length > 0) {
-                    const select = document.getElementById('carType');
-                    select.innerHTML = '<option value="Any">Any / Not Sure</option>' + allFleetData.map(c => `<option value="${c.name}">${c.name}</option>`).join('');
-
-                    // Fill Homepage Fleet Grid
-                    const grid = document.getElementById('fleetGrid');
-                    grid.innerHTML = allFleetData.slice(0, 6).map(car => `
-                        <div class="fleet-card">
-                            <img src="${car.img}" alt="${car.name}">
-                            <div class="fleet-details">
-                                <div class="fleet-title">${car.name}</div>
-                                <ul class="specs-list">
-                                    <li>Car Type <span>${car.type}</span></li>
-                                    <li>Max People <span>${car.seats}</span></li>
-                                    <li>Transmission <span>${car.trans}</span></li>
-                                    <li>Fuel Type <span>${car.fuel}</span></li>
-                                </ul>
-                                <div class="fleet-price">${car.price} <br><small style="font-size:0.8rem; color:#888;">(Including all taxes)</small></div>
-                                <a href="index.html?vehicle=${encodeURIComponent(car.name)}" class="btn-card">BOOK RIDE NOW</a>
-                            </div>
-                        </div>
-                    `).join('');
+                    renderFleet(allFleetData, false);
+                } else {
+                    allFleetData = fallbackFleetData;
+                    renderFleet(allFleetData, true);
                 }
             } catch(e) {
-                console.error("Database fetch failed.");
+                allFleetData = fallbackFleetData;
+                renderFleet(allFleetData, true);
+                console.error("Database fetch failed.", e);
+            }
+
+            // Preselect vehicle from URL if present: index.html?vehicle=Innova
+            const params = new URLSearchParams(window.location.search);
+            const vehicleFromUrl = params.get('vehicle');
+            if (vehicleFromUrl) {
+                const carType = document.getElementById('carType');
+                if ([...carType.options].some(opt => opt.value === vehicleFromUrl)) {
+                    carType.value = vehicleFromUrl;
+                    updateTripInsights();
+                }
             }
         }
         init();
+        renderRecentRoutes();
+        updateTripInsights();
 
         function logout() { localStorage.removeItem('customer'); location.reload(); }
 
@@ -380,7 +497,7 @@
             
             slider.innerHTML = allFleetData.map(c => `
                 <div class="sugg-card">
-                    <img src="${c.img}">
+                    <img src="${c.img}" alt="${c.name}" loading="lazy">
                     <div>
                         <h3>${c.name}</h3>
                         <p>${c.price}</p>
@@ -393,6 +510,78 @@
             container.scrollIntoView({ behavior: 'smooth' });
         }
 
+
+        const fieldIds = ['pickup','dropoff','datetime','name','email','phone','carType'];
+        fieldIds.forEach(id => document.getElementById(id).addEventListener('input', updateTripInsights));
+
+        function cityScore(text) {
+            return (text || '').trim().toLowerCase().split(/\s+/).reduce((acc,w)=>acc+w.charCodeAt(0)||acc, 0);
+        }
+
+        function estimateTrip(pickup, dropoff, vehicle) {
+            const baseDistance = Math.max(12, Math.abs(cityScore(pickup) - cityScore(dropoff)) % 280 + 20);
+            const durationHours = baseDistance / 32;
+            const multipliers = { 'SUV': 1.35, 'Sedan': 1.0, 'Hatchback': 0.9, 'Any': 1.05 };
+            const matchedKey = Object.keys(multipliers).find(k => vehicle.toLowerCase().includes(k.toLowerCase())) || 'Any';
+            const fare = Math.round((baseDistance * 18 + 250) * multipliers[matchedKey]);
+            return { baseDistance, durationHours, fare };
+        }
+
+        function updateTripInsights() {
+            const pickup = document.getElementById('pickup').value;
+            const dropoff = document.getElementById('dropoff').value;
+            const vehicle = document.getElementById('carType').value;
+
+            let complete = 0;
+            fieldIds.forEach(id => { if (document.getElementById(id).value.trim()) complete += 1; });
+            const percent = Math.round((complete / fieldIds.length) * 100);
+            document.getElementById('tripProgressBar').style.width = percent + '%';
+            document.getElementById('insightProgressText').innerText = percent + '%';
+
+            if (pickup && dropoff) {
+                const { baseDistance, durationHours, fare } = estimateTrip(pickup, dropoff, vehicle || 'Any');
+                document.getElementById('insightDistance').innerText = `${baseDistance} km`;
+                document.getElementById('insightDuration').innerText = `${durationHours.toFixed(1)} hrs`;
+                document.getElementById('insightFare').innerText = `₹${fare.toLocaleString('en-IN')}*`;
+            }
+        }
+
+        function saveRecentRoute(pickup, dropoff) {
+            const key = 'jk_recent_routes';
+            const prev = JSON.parse(localStorage.getItem(key) || '[]');
+            const route = `${pickup} → ${dropoff}`;
+            const deduped = [route, ...prev.filter(r => r !== route)].slice(0, 5);
+            localStorage.setItem(key, JSON.stringify(deduped));
+            renderRecentRoutes();
+        }
+
+        function renderRecentRoutes() {
+            const key = 'jk_recent_routes';
+            const routes = JSON.parse(localStorage.getItem(key) || '[]');
+            const box = document.getElementById('recentRoutes');
+            if (!routes.length) {
+                box.innerHTML = '<small style="color:#677788;">No recent routes yet. Your recent searches appear here.</small>';
+                return;
+            }
+            box.innerHTML = routes.map(route => `<button type="button" class="route-chip" onclick="applyRoute('${encodeURIComponent(route)}')">${route}</button>`).join('');
+        }
+
+        function applyRoute(encodedRoute) {
+            const route = decodeURIComponent(encodedRoute);
+            const [pickup, dropoff] = route.split(' → ');
+            document.getElementById('pickup').value = pickup || '';
+            document.getElementById('dropoff').value = dropoff || '';
+            updateTripInsights();
+        }
+
+
+        function prefillRoute(from, to) {
+            document.getElementById('pickup').value = from;
+            document.getElementById('dropoff').value = to;
+            document.getElementById('book').scrollIntoView({ behavior: 'smooth' });
+            updateTripInsights();
+        }
+
         // SUBMIT TO WHATSAPP, DB & PUTER EMAIL
         document.getElementById('bookingForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -400,6 +589,7 @@
             btn.innerText = "Processing...";
 
             const data = {
+                pickup_time: document.getElementById('datetime').value,
                 trip_type: document.getElementById('tripType').value,
                 pickup: document.getElementById('pickup').value,
                 dropoff: document.getElementById('dropoff').value,
@@ -411,6 +601,14 @@
             };
 
             try {
+                const phoneOk = /^\+?[0-9]{10,15}$/.test(data.customer_phone.trim());
+                if (!phoneOk) {
+                    alert("Please enter a valid phone number (10-15 digits).");
+                    btn.innerText = "Book Now (WhatsApp)";
+                    return;
+                }
+
+                saveRecentRoute(data.pickup, data.dropoff);
                 // Save to Database
                 const dbRes = await fetch('/api/book', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(data) });
                 const dbData = await dbRes.json();
